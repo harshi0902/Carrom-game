@@ -1,0 +1,21 @@
+	
+	public void paintComponent(Graphics g) {
+
+		BufferedImage img = null;
+		try {
+		    img = ImageIO.read(new File("CarramBoard.gif")); //name of file of picture of board
+		} catch (IOException e) {
+			System.out.println("bleh");
+		}
+		g.drawImage(img, 0, 0, frame.getWidth(), frame.getHeight(), null);
+		
+		
+		g.setColor(new Color(0, 0, 0)); //black
+		g.fillOval(0, 0, 30, 30); //position
+		g.setColor(new Color(240, 215, 180)); //tan
+		g.fillOval(50, 50, 30, 30); //position
+		g.setColor(new Color(245, 90, 90)); //red
+		g.fillOval(100, 100, 30, 30); //position
+		g.setColor(new Color(245, 245, 245)); //white
+		g.fillOval(150, 150, 30, 30);//position
+	}
