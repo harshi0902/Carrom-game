@@ -1,5 +1,10 @@
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+
+import javax.imageio.ImageIO;
 
 public class Board implements Drawable{
 	ArrayList<Tile> tiles = new ArrayList<Tile>();
@@ -7,19 +12,31 @@ public class Board implements Drawable{
 	private final int strikerRadius = 0;
 	
 	public Board() { //red = 0, white = 1, black = 2
-		tiles.add(new Carrom(1,))
+		tiles.add(new Carrom(1,0,0)); //first row
+		tiles.add(new Carrom(1,0,0));
+		tiles.add(new Carrom(1,0,0));
 		
-		tiles.add(new Carrom(1, 300 - 2*carromRadius, 300));
+		
+		
+		
+		tiles.add(new Carrom(1, 300 - 2*carromRadius, 300)); //third row
 		tiles.add(new Carrom(2, 300 - carromRadius, 300));
-		tiles.add(new Striker(300, 300));
+		tiles.add(new Carrom(0, 300, 300));
 		tiles.add(new Carrom(1, 300 + carromRadius, 300));
 		tiles.add(new Carrom(1, 300 + carromRadius*2, 300));
+		//fourth row
 		
 	}
 	
 	@Override
 	public void draw(Graphics g) {
-		// TODO Auto-generated method stub
+		BufferedImage img = null;
+		try {
+		    img = ImageIO.read(getClass().getResource("carrom_board.png")); //name of file of picture of board
+		} catch (IOException e) {
+			System.out.println("bleh");
+		}
+		g.drawImage(img, 0, 0, 600, 600, null);
 	}
 	
 	public int strikerIndex() {
