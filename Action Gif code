@@ -1,0 +1,7 @@
+
+
+
+Icon imgIcon = new ImageIcon(this.getClass().getResource("ajax-loader.gif"));
+JLabel label1 = new JLabel(imgIcon);
+label.setBounds(668, 43, 46, 14); // for example, you can use your own values
+frame2.getContentPane().add(label);
