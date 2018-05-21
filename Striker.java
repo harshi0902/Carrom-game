@@ -9,7 +9,13 @@ public class Striker extends Tile{
 	}
 	
 	public void draw(Graphics g) {
-		g.setColor(245,245,245);
+		g.setColor(new Color(245,245,245));
 		g.fillOval(posX, posY, diameter, diameter);
+	}
+	
+	public void drawSelected(Graphics g) {
+		g.setColor(new Color(250, 250, 10))
+		g.drawOval(posX, posY, diameter, diameter);
+	}
 
 }
