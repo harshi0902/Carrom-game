@@ -13,29 +13,29 @@ public class Board implements Drawable{
 	
 	public Board() { //red = 0, white = 1, black = 2
 // 		//red
-				tiles.add(new Carrom(0, center-carromDiameter, center-carromDiameter));
+				tiles.add(new Carrom(0, center, center));
 				
 				//white/tan
-				tiles.add(new Carrom( 1, center-carromDiameter, center-(carromDiameter*5))); //top
-				tiles.add(new Carrom( 1, center-(carromDiameter*5), center-(carromDiameter*3))); //second row
-				tiles.add(new Carrom( 1, center+(carromDiameter*3), center-(carromDiameter*3)));
-				tiles.add(new Carrom( 1, center-(carromDiameter*3), center-(carromDiameter*2))); //third row
-				tiles.add(new Carrom( 1, center+carromDiameter, center-(carromDiameter*2)));
-				tiles.add(new Carrom( 1, center-(carromDiameter*5), center+carromDiameter)); //fourth row
-				tiles.add(new Carrom( 1, center-carromDiameter, center+carromDiameter));
-				tiles.add(new Carrom( 1, center+(carromDiameter*3), center+carromDiameter));
-				tiles.add(new Carrom( 1, center-carromDiameter, center+(carromDiameter*3))); //bottom
+				tiles.add(new Carrom( 1, center, center-(carromDiameter*4))); //top
+				tiles.add(new Carrom( 1, center-(carromDiameter*4), center-(carromDiameter*2))); //second row
+				tiles.add(new Carrom( 1, center+(carromDiameter*4), center-(carromDiameter*2)));
+				tiles.add(new Carrom( 1, center-(carromDiameter*2), center-(carromDiameter*1))); //third row
+				tiles.add(new Carrom( 1, center+(carromDiameter*2), center-(carromDiameter*1)));
+				tiles.add(new Carrom( 1, center-(carromDiameter*4), center+(carromDiameter*2))); //fourth row
+				tiles.add(new Carrom( 1, center, center+(carromDiameter*2)));
+				tiles.add(new Carrom( 1, center+(carromDiameter*4), center+(carromDiameter*2)));
+				tiles.add(new Carrom( 1, center, center+(carromDiameter*4))); //bottom
 				
 				//black
-				tiles.add(new Carrom( 2, center-(carromDiameter*3), center-(carromDiameter*4))); //first row
-				tiles.add(new Carrom( 2, center+carromDiameter, center-(carromDiameter*4)));
-				tiles.add(new Carrom( 2, center-carromDiameter, center-(carromDiameter*3))); //second row
-				tiles.add(new Carrom( 2, center-(carromDiameter*5), center-carromDiameter)); //third row
-				tiles.add(new Carrom( 2, center+(carromDiameter*3), center-carromDiameter));
-				tiles.add(new Carrom( 2, center-(carromDiameter*3), center)); //third row
-				tiles.add(new Carrom( 2, center+carromDiameter, center));
-				tiles.add(new Carrom( 2, center-(carromDiameter*3), center+(carromDiameter*2))); // third row
-				tiles.add(new Carrom( 2, center+carromDiameter, center+(carromDiameter*2)));
+				tiles.add(new Carrom( 2, center-(carromDiameter*2), center-(carromDiameter*3))); //first row
+				tiles.add(new Carrom( 2, center+(carromDiameter*2), center-(carromDiameter*3)));
+				tiles.add(new Carrom( 2, center, center-(carromDiameter*2))); //second row
+				tiles.add(new Carrom( 2, center-(carromDiameter*4), center)); //third row
+				tiles.add(new Carrom( 2, center+(carromDiameter*4), center));
+				tiles.add(new Carrom( 2, center-(carromDiameter*2), center+carromDiameter)); //third row
+				tiles.add(new Carrom( 2, center+(carromDiameter*2), center+carromDiameter));
+				tiles.add(new Carrom( 2, center-(carromDiameter*2), center+(carromDiameter*3))); // third row
+				tiles.add(new Carrom( 2, center+(carromDiameter*2), center+(carromDiameter*3)));
 				
 		//fourth row
 		tiles.add(new Striker(center, 470));
