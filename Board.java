@@ -12,42 +12,33 @@ public class Board implements Drawable{
 	private final int strikerRadius = 10;
 	
 	public Board() { //red = 0, white = 1, black = 2
-// 		tiles.add(new Carrom(1,0,0)); //first row
-// 		tiles.add(new Carrom(1,0,0));
-// 		tiles.add(new Carrom(1,0,0));
-		
-// 		tiles.add(new Carrom(1, 300 - 2*carromRadius, 300)); //third row
-// 		tiles.add(new Carrom(2, 300 - carromRadius, 300));
-// 		tiles.add(new Carrom(0, 300, 300));
-// 		tiles.add(new Carrom(1, 300 + carromRadius, 300));
-// 		tiles.add(new Carrom(1, 300 + carromRadius*2, 300));
-// 		//fourth row
-		
-		//red
-		tiles.add(new Carrom(0, 300-carromRadius, 300-carromRadius));
-		
-		//white/tan
-		tiles.add(newCarrom( 1, 300-carromRadius, 300-(carromRadius*5))); //top
-		tiles.add(newCarrom( 1, 300-(carromRadius*5), 300-(carromRadius*3))); //second row
-		tiles.add(newCarrom( 1, 300+(carromRadius*3), 300-(carromRadius*3)));
-		tiles.add(newCarrom( 1, 300-(carromRadius*3), 300-(carromRadius*2))); //third row
-		tiles.add(newCarrom( 1, 300+carromRadius, 300-(carromRadius*2)));
-		tiles.add(newCarrom( 1, 300-(carromRadius*5), 300+carromRadius)); //fourth row
-		tiles.add(newCarrom( 1, 300-carromRadius, 300+carromRadius));
-		tiles.add(newCarrom( 1, 300+(carromRadius*3), 300+carromRadius));
-		tiles.add(newCarrom( 1, 300-carromRadius, 300+(carromRadius*3))); //bottom
-		
-		//black
-		tiles.add(newCarrom( 2, 300-(carromRadius*3), 300-(carromRadius*4))); //first row
-		tiles.add(newCarrom( 2, 300+carromRadius, 300-(carromRadius*4)));
-		tiles.add(newCarrom( 2, 300-carromRadius, 300-(carromRadius*3))); //second row
-		tiles.add(newCarrom( 2, 300-(carromRadius*5), 300-carromRadius)); //third row
-		tiles.add(newCarrom( 2, 300+(carromRadius*3), 300-carromRadius));
-		tiles.add(newCarrom( 2, 300-(carromRadius*3), 300)); //third row
-		tiles.add(newCarrom( 2, 300+carromRadius, 300));
-		tiles.add(newCarrom( 2, 300-(carromRadius*3), 300+(carromRadius*2))); // third row
-		tiles.add(newCarrom( 2, 300+carromRadius, 300+(carromRadius*2)));
-		
+// 		//red
+				tiles.add(new Carrom(0, center-carromDiameter, center-carromDiameter));
+				
+				//white/tan
+				tiles.add(new Carrom( 1, center-carromDiameter, center-(carromDiameter*5))); //top
+				tiles.add(new Carrom( 1, center-(carromDiameter*5), center-(carromDiameter*3))); //second row
+				tiles.add(new Carrom( 1, center+(carromDiameter*3), center-(carromDiameter*3)));
+				tiles.add(new Carrom( 1, center-(carromDiameter*3), center-(carromDiameter*2))); //third row
+				tiles.add(new Carrom( 1, center+carromDiameter, center-(carromDiameter*2)));
+				tiles.add(new Carrom( 1, center-(carromDiameter*5), center+carromDiameter)); //fourth row
+				tiles.add(new Carrom( 1, center-carromDiameter, center+carromDiameter));
+				tiles.add(new Carrom( 1, center+(carromDiameter*3), center+carromDiameter));
+				tiles.add(new Carrom( 1, center-carromDiameter, center+(carromDiameter*3))); //bottom
+				
+				//black
+				tiles.add(new Carrom( 2, center-(carromDiameter*3), center-(carromDiameter*4))); //first row
+				tiles.add(new Carrom( 2, center+carromDiameter, center-(carromDiameter*4)));
+				tiles.add(new Carrom( 2, center-carromDiameter, center-(carromDiameter*3))); //second row
+				tiles.add(new Carrom( 2, center-(carromDiameter*5), center-carromDiameter)); //third row
+				tiles.add(new Carrom( 2, center+(carromDiameter*3), center-carromDiameter));
+				tiles.add(new Carrom( 2, center-(carromDiameter*3), center)); //third row
+				tiles.add(new Carrom( 2, center+carromDiameter, center));
+				tiles.add(new Carrom( 2, center-(carromDiameter*3), center+(carromDiameter*2))); // third row
+				tiles.add(new Carrom( 2, center+carromDiameter, center+(carromDiameter*2)));
+				
+		//fourth row
+		tiles.add(new Striker(center, 470));
 	}
 	
 	@Override
