@@ -28,11 +28,15 @@ public class Carrom extends Tile{
 	
 	public void draw(Graphics g) {
 		if (color == 0) {
-			g.setColor(245, 90, 90);
+			g.setColor(new Color(245, 90, 90));
 			g.fillOval(posX, posY, carromDiameter, carromDiameter);
+			g.setColor(new Color(200, 0, 0));
+			g.drawOval(posX, posY, carromDiameter, carromDiameter);
 		} else if (color == 1) {
 			g.setColor(245, 245, 245);
 			g.fillOval(posX, posY, carromDiameter, carromDiameter);
+			g.setColor(new Color(0, 0, 0));
+			g.drawOval(posX, posY, carromDiameter, carromDiameter);
 		} else {
 			g.setColor(0, 0, 0);
 			g.fillOval(posX, posY, carromDiameter, carromDiameter);
