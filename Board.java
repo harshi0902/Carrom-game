@@ -8,23 +8,45 @@ import javax.imageio.ImageIO;
 
 public class Board implements Drawable{
 	ArrayList<Tile> tiles = new ArrayList<Tile>();
-	private final int carromRadius = 0;
-	private final int strikerRadius = 0;
+	private final int carromRadius = 10;
+	private final int strikerRadius = 10;
 	
 	public Board() { //red = 0, white = 1, black = 2
-		tiles.add(new Carrom(1,0,0)); //first row
-		tiles.add(new Carrom(1,0,0));
-		tiles.add(new Carrom(1,0,0));
+// 		tiles.add(new Carrom(1,0,0)); //first row
+// 		tiles.add(new Carrom(1,0,0));
+// 		tiles.add(new Carrom(1,0,0));
 		
+// 		tiles.add(new Carrom(1, 300 - 2*carromRadius, 300)); //third row
+// 		tiles.add(new Carrom(2, 300 - carromRadius, 300));
+// 		tiles.add(new Carrom(0, 300, 300));
+// 		tiles.add(new Carrom(1, 300 + carromRadius, 300));
+// 		tiles.add(new Carrom(1, 300 + carromRadius*2, 300));
+// 		//fourth row
 		
+		//red
+		tiles.add(new Carrom(0, 300-carromRadius, 300-carromRadius));
 		
+		//white/tan
+		tiles.add(newCarrom( 1, 300-carromRadius, 300-(carromRadius*5))); //top
+		tiles.add(newCarrom( 1, 300-(carromRadius*5), 300-(carromRadius*3))); //second row
+		tiles.add(newCarrom( 1, 300+(carromRadius*3), 300-(carromRadius*3)));
+		tiles.add(newCarrom( 1, 300-(carromRadius*3), 300-(carromRadius*2))); //third row
+		tiles.add(newCarrom( 1, 300+carromRadius, 300-(carromRadius*2)));
+		tiles.add(newCarrom( 1, 300-(carromRadius*5), 300+carromRadius)); //fourth row
+		tiles.add(newCarrom( 1, 300-carromRadius, 300+carromRadius));
+		tiles.add(newCarrom( 1, 300+(carromRadius*3), 300+carromRadius));
+		tiles.add(newCarrom( 1, 300-carromRadius, 300+(carromRadius*3))); //bottom
 		
-		tiles.add(new Carrom(1, 300 - 2*carromRadius, 300)); //third row
-		tiles.add(new Carrom(2, 300 - carromRadius, 300));
-		tiles.add(new Carrom(0, 300, 300));
-		tiles.add(new Carrom(1, 300 + carromRadius, 300));
-		tiles.add(new Carrom(1, 300 + carromRadius*2, 300));
-		//fourth row
+		//black
+		tiles.add(newCarrom( 2, 300-(carromRadius*3), 300-(carromRadius*4))); //first row
+		tiles.add(newCarrom( 2, 300+carromRadius, 300-(carromRadius*4)));
+		tiles.add(newCarrom( 2, 300-carromRadius, 300-(carromRadius*3))); //second row
+		tiles.add(newCarrom( 2, 300-(carromRadius*5), 300-carromRadius)); //third row
+		tiles.add(newCarrom( 2, 300+(carromRadius*3), 300-carromRadius));
+		tiles.add(newCarrom( 2, 300-(carromRadius*3), 300)); //third row
+		tiles.add(newCarrom( 2, 300+carromRadius, 300));
+		tiles.add(newCarrom( 2, 300-(carromRadius*3), 300+(carromRadius*2))); // third row
+		tiles.add(newCarrom( 2, 300+carromRadius, 300+(carromRadius*2)));
 		
 	}
 	
