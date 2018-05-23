@@ -11,30 +11,56 @@ import java.io.IOException;
 
 
 import javax.imageio.ImageIO;
-
+import javax.swing.AbstractAction;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.KeyStroke;
+import javax.swing.Timer;
 import javax.swing.UIManager;
 
 public class CarromBoardPanel extends JPanel {
 
 	private final int SIZE_PANEL = 600;
-	private Board board = new Board();
+	private static Board board = new Board();
 	private int score = 0;
 	private static JFrame frame = new JFrame("Carrom Board!");
 	private Timer t  = new Timer(100, null);
+	private static JPanel panel = new CarromBoardPanel();
+	private static Striker s = (Striker) board.getTiles().get(board.strikerIndex());
 	
 	public static void main(String[] args) {
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		JPanel panel = new CarromBoardPanel();
 		frame.add(panel);
 		frame.pack();
+		frame.setResizable(false);
 
+		panel.getInputMap().put(KeyStroke.getKeyStroke("LEFT"), "decreaseAngle");
+		panel.getActionMap().put("decreaseAngle", new AbstractAction() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				s.incrementAngle(Math.PI / 72);
+				frame.repaint();
+			}
+		});
+		panel.getInputMap().put(KeyStroke.getKeyStroke("RIGHT"), "increaseAngle");
+
+		panel.getActionMap().put("increaseAngle", new AbstractAction() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				s.incrementAngle(-Math.PI / 72);
+				frame.repaint();
+			}
+		});
+		
+
+			
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		}
@@ -58,7 +84,6 @@ public class CarromBoardPanel extends JPanel {
 			public void mouseClicked(MouseEvent arg0) {
 				int x = arg0.getX();
 				int y = arg0.getY();
-				Striker s = (Striker) board.getTiles().get(board.strikerIndex());
 				double distance = Math.hypot(s.getCenterX() - x, s.getCenterY() - y);
 				double radius = (s.getDiameter()/(double)2);
 				if(distance <= radius){
