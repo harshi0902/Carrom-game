@@ -58,6 +58,16 @@ public class CarromBoardPanel extends JPanel {
 				frame.repaint();
 			}
 		});
+		panel.getInputMap().put(KeyStroke.getKeyStroke("ENTER"), "shoot");
+		panel.getActionMap().put("shoot", new AbstractAction() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				System.out.println("dir to shoot: " + (s.getDir()%(Math.PI * 2)));
+				//s.shoot(s.getDir()%(Math.PI * 2));
+				frame.repaint();
+			}
+		});
 		
 
 			
@@ -140,7 +150,9 @@ public class CarromBoardPanel extends JPanel {
 					+ "<br>" + "<br>"
 					+ "There are NO half reds, which means you can not place the Striker in between the red circles\r\n"
 					+"<br>" + "<br>" + "If you click the Striker once it will hit the coins in the direction you point it at"
-					+ "<br>" + "<br>"	+ "At the end of the game, whoever has the most points wins!\r\n" + "<br>" + "<br>"+ "You have 20 seconds for your turn\r\n"+ 
+					+ "<br>" + "<br>"	+ "At the end of the game, whoever has the most points wins!\r\n" + "<br>" + "<br>"+ "You have 20 seconds for your turn\r\n"+ "<br>" + "<br>"+ "Press the Left Arrow Key to move the arrow to the Left"+ 
+					 "<br>" + "<br>" + "Press the Right Arrow Key to move the arrow to the Right"+
+					 "<br>" + "<br>" + "Press the Enter Key to shoot the Striker"+ 
 					"</html>");
 			Icon imgIcon = new ImageIcon(this.getClass().getResource("rules.gif"));
 			label.setIcon(imgIcon);
