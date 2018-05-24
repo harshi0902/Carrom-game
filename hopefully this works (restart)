@@ -1,0 +1,11 @@
+void restartGame() {
+
+  remove(panel)
+
+  panel = new PanelPelota();
+
+  add(panel);
+
+  revalidate();
+
+}
