@@ -10,8 +10,6 @@ import javax.imageio.ImageIO;
 public class Striker extends Tile{
 	private final int strikerDiameter = 23;
 	private boolean isClicked;
-	private int centerX;
-	private int centerY;
 	private boolean isHighlighted;
 	private AffineTransform strikerTrans = new AffineTransform();
 	private BufferedImage img = null;
@@ -23,18 +21,18 @@ public class Striker extends Tile{
 		try {
 		    img = ImageIO.read(getClass().getResource("line.png")); //name of file of picture of board
 		} catch (IOException e) {
-			System.out.println("bleh");
+			e.printStackTrace();
 		}
 	}
 	
 	public int getCenterX() {
-		centerX = super.getX() + (strikerDiameter/2);
-		return centerX;
+		super.setCenterX(super.getX() + (strikerDiameter/2));  
+		return super.getCenterX();
 	}
 	
 	public int getCenterY() {
-		centerY = super.getY() + (strikerDiameter/2);
-		return centerY;
+		super.setCenterY(super.getY() + (strikerDiameter/2));  
+		return super.getCenterY();
 	}
 	
 	public boolean isClicked() {
@@ -54,11 +52,9 @@ public class Striker extends Tile{
 		else {
 			g.setColor(new Color(250, 250, 10));
 			g.drawOval(super.getX(), super.getY(), strikerDiameter, strikerDiameter);
-			strikerTrans.setToTranslation(centerX, centerY);
+			strikerTrans.setToTranslation(super.getCenterX(), super.getCenterY());
 			strikerTrans.scale(0.05, 0.05);
-			System.out.println("center x: " + centerX + " center y: " + centerY);
 			strikerTrans.rotate(-super.getDir());
-			System.out.println("dir: "+ -super.getDir());
 			Graphics2D g2 = (Graphics2D)g;
 			g2.drawImage(img, strikerTrans, null);
 		}
