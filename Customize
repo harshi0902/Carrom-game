@@ -1,0 +1,3 @@
+//add this right underneath the html writing of the rules
+label.setFont(new Font("Times New Roman", Font.BOLD, 14));
+			frame2.getContentPane().setBackground(Color.ORANGE );
