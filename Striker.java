@@ -36,6 +36,10 @@ public class Striker extends Tile{
 		return super.getCenterY();
 	}
 	
+	public double getRadius() {
+		return strikerDiameter/(double)2;
+	}
+	
 	public boolean isClicked() {
 		return isClicked;
 	}
