@@ -8,6 +8,7 @@ public class Tile implements Drawable {
 	private double dir;
 	private int centerX;
 	private int centerY;
+	private double radius;
 	private ArrayList<Integer[]> path = new ArrayList<Integer[]>();
 
 	public Tile(int xpos, int ypos, double speed, double dir) {
@@ -24,6 +25,10 @@ public class Tile implements Drawable {
 
 	public double getDir() {
 		return dir;
+	}
+	
+	public double getRadius() {
+		return radius;
 	}
 
 	public void setDir(double angle) {
@@ -74,6 +79,13 @@ public class Tile implements Drawable {
 	@Override
 	public void draw(Graphics g) {
 		g.drawOval(x, y, 40, 40);
+	}
+
+	public boolean collision(Tile t) { //is a tile touching another tile
+		double distance = Math.hypot(this.centerX - t.getCenterX(), this.centerY - t.getCenterY());
+		if(distance == t.getRadius() + this.getRadius())
+			return true;
+		return false;
 	}
 
 }
