@@ -10,7 +10,6 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.ArrayList;
-
 import javax.imageio.ImageIO;
 import javax.swing.AbstractAction;
 import javax.swing.Icon;
@@ -205,8 +204,16 @@ public class CarromBoardPanel extends JPanel {
 	}
 
 	public void tick() {
-
-		if (s.getX() < 539 && s.getX() > 36 && s.getY() > 36)
+		boolean noWall = s.getX() < 539 && s.getX() > 36 && s.getY() > 36;
+		boolean noTileCollision = true; //iterates through all tiles + checks if they are hitting each other
+		ArrayList<Tile> tiles = board.getTiles();
+		for(int i = 0; i < tiles.size(); i++) {
+			for(int j = i; j < tiles.size(); j++) {
+				if(tiles.get(i).collision(tiles.get(j)))
+					noTileCollision = false;
+			}
+		}
+		if (noWall && noTileCollision)
 			s.move(s.getPath().get(timeCount)[0], s.getPath().get(timeCount)[1]);
 		this.repaint();
 		timeCount++;
