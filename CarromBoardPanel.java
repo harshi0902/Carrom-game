@@ -37,11 +37,11 @@ public class CarromBoardPanel extends JPanel {
 	private static boolean isHit = false;
 
 	public static void main(String[] args) {
+		
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.add(panel);
 		frame.pack();
-		// ecole normale supieriure
 		frame.setResizable(false);
 
 		panel.getInputMap().put(KeyStroke.getKeyStroke("LEFT"), "decreaseAngle");
@@ -72,7 +72,7 @@ public class CarromBoardPanel extends JPanel {
 					t.start();
 					s.unHighlight();
 					hit(s);
-					s.setSpeed(10);
+					s.setSpeed(20);
 				}
 				frame.repaint();
 			}
@@ -204,38 +204,38 @@ public class CarromBoardPanel extends JPanel {
 	}
 
 	public void tick() {
-
-		for (int i = 0; i < tiles.size(); i++) {
-			for (int j = i + 1; j < tiles.size(); j++) {
-				if (collision(tiles.get(i), tiles.get(j))) { // if these two
-
-					Tile one = tiles.get(i);
-					Tile two = tiles.get(j);
-
-					int difX = Math.abs(two.getCenterX() - one.getCenterX());
-					int difY = Math.abs(two.getCenterY() - one.getCenterY());
-
-					double angle = Math.asin((difY) / (one.getRadius() + two.getRadius()));
-					double a = two.getRadius() * Math.cos(angle);
-					double b = two.getRadius() * Math.sin(angle);
-
-					double contactX = (double) two.getCenterX() + a;
-					double contactY = (double) two.getCenterY() + b;
-
-					double tanSlope = -((double) two.getX() - contactX) / ((double) two.getY() - contactY);
-					double angleSlope = Math.atan(tanSlope);
-
-					double difAngleOne = one.getDir() - angleSlope;
-					double difAngleTwo = two.getDir() - angleSlope;
-					one.setDir(Math.PI - difAngleOne);
-					hit(one);
-					one.setSpeed(15);
-					one.setDir(Math.PI - difAngleTwo);
-					hit(two);
-					two.setSpeed(15);
-				}
-			}
-		}
+		
+//		for (int i = 0; i < tiles.size(); i++) {
+//			for (int j = i + 1; j < tiles.size(); j++) {
+//				if (collision(tiles.get(i), tiles.get(j))) { // if these two
+//
+//					Tile one = tiles.get(i);
+//					Tile two = tiles.get(j);
+//
+//					int difX = Math.abs(two.getCenterX() - one.getCenterX());
+//					int difY = Math.abs(two.getCenterY() - one.getCenterY());
+//
+//					double angle = Math.asin((difY) / (one.getRadius() + two.getRadius()));
+//					double a = two.getRadius() * Math.cos(angle);
+//					double b = two.getRadius() * Math.sin(angle);
+//
+//					double contactX = (double) two.getCenterX() + a;
+//					double contactY = (double) two.getCenterY() + b;
+//
+//					double tanSlope = -((double) two.getX() - contactX) / ((double) two.getY() - contactY);
+//					double angleSlope = Math.atan(tanSlope);
+//
+//					double difAngleOne = one.getDir() - angleSlope;
+//					double difAngleTwo = two.getDir() - angleSlope;
+//					one.setDir(Math.PI - difAngleOne);
+//					hit(one);
+//					one.setSpeed(15);
+//					one.setDir(Math.PI - difAngleTwo);
+//					hit(two);
+//					two.setSpeed(15);
+//				}
+//			}
+//		}
 
 		if (s.getY() <= 39) {
 			double roundDir = s.getDir() * 10;
@@ -263,13 +263,34 @@ public class CarromBoardPanel extends JPanel {
 		}
 
 		else if (s.getY() >= 530) {
-			s.setSpeed(0);
+			
+			double roundDir = s.getDir() * 10;
+			roundDir = Math.round(roundDir);
+			roundDir /= 10;
+
+			double verPi = 3 * Math.PI / 2;
+			verPi = verPi * 10;
+			verPi = Math.round(verPi);
+			verPi = verPi / 10;
+
+			if (roundDir == verPi) {
+				System.out.println("90");
+				s.setDir(Math.PI);
+			} else if (s.getDir() > 3 * Math.PI / 2) {
+				s.setDir(2*Math.PI - s.getDir());
+			}
+
+			else if (s.getDir() < 3* Math.PI / 2) {
+				s.setDir((2 * Math.PI) - s.getDir());
+			}
+			s.setSpeed(s.getSpeed() * 0.5);
+			s.setTime(0);
+			hit(s);
 		}
-		
-		else if (s.getX() >= 36) {
+
+		else if (s.getX() <= 36) {
 			s.setSpeed(0);
-		}
-		else if (s.getX() <= 566) {
+		} else if (s.getX() >= 566) {
 			s.setSpeed(0);
 		}
 		for (Tile ti : tiles) {
