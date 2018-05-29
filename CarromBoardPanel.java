@@ -116,10 +116,10 @@ public class CarromBoardPanel extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (!isHit) {
-					System.out.println("hi");
 					hit();
 				}
-				tick();
+				if (s.getPath().size() > 0)
+					tick();
 			}
 
 		});
@@ -217,35 +217,46 @@ public class CarromBoardPanel extends JPanel {
 		double dir = s.getDir();
 		int x = s.getX();
 		int y = s.getY();
-		System.out.println("dir: " + dir);
-	
-		
-		if (dir == Math.PI/2) {
+		System.out.println("y is" + y);
+		double ver = dir * 100;
+		ver = Math.round(ver);
+		ver = ver / 100;
+
+		double verPi = Math.PI / 2;
+		verPi = verPi * 100;
+		verPi = Math.round(verPi);
+		verPi = verPi / 100;
+
+		double verPi2 = 3 * Math.PI / 2;
+		verPi2 = verPi2 * 100;
+		verPi2 = Math.round(verPi2);
+		verPi2 = verPi2 / 100;
+		if (ver == verPi) {
 			System.out.println("using this method aosijdfoiasjdfoiajsdofijasoidfj");
 			int ct = 0;
-			for (int i = y; i < 36; i++) {
+
+			for (int i = y; i > 36; i--) {
 				Integer[] coord = new Integer[2];
 				coord[0] = new Integer(x);
-				Integer proY = new Integer(ct);
+				Integer proY = new Integer(y - ct);
 				coord[1] = proY;
 				s.setPath(ct, coord);
 				ct++;
 			}
 		}
 
-		else if (dir == Math.PI * 3 / 2) {
-			int count = 0;
+		else if (ver == verPi2) {
 			int ct = 0;
-			for (int i = x; i > count; i--) {
+
+			for (int i = y; i < 566; i++) {
 				Integer[] coord = new Integer[2];
 				coord[0] = new Integer(x);
-				Integer proY = new Integer(y - (int) (ct * Math.tan(Math.PI - dir)));
+				Integer proY = new Integer(y + ct);
 				coord[1] = proY;
 				s.setPath(ct, coord);
 				ct++;
 			}
-		}
-		else if ((dir >= 0 && dir < Math.PI / 2) || (dir > Math.PI * 3 / 2 && dir < Math.PI * 2)) {
+		} else if ((dir >= 0 && dir < Math.PI / 2) || (dir > Math.PI * 3 / 2 && dir < Math.PI * 2)) {
 			System.out.println("uaosifjaosdjifoaijsdfioajsodfjaosdf");
 			int count = 540;
 			int ct = 0;
