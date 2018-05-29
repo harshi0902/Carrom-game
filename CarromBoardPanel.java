@@ -116,9 +116,9 @@ public class CarromBoardPanel extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (!isHit) {
-					hit();
+					hit(s);
 				}
-				if (s.getPath().size() > 0)
+				
 					tick();
 			}
 
@@ -212,11 +212,11 @@ public class CarromBoardPanel extends JPanel {
 		timeCount++;
 	}
 
-	public void hit() {
+	public void hit(Tile mTile) {
 		isHit = true;
 		double dir = s.getDir();
-		int x = s.getX();
-		int y = s.getY();
+		int x = mTile.getX();
+		int y = mTile.getY();
 		System.out.println("y is" + y);
 		double ver = dir * 100;
 		ver = Math.round(ver);
@@ -231,8 +231,8 @@ public class CarromBoardPanel extends JPanel {
 		verPi2 = verPi2 * 100;
 		verPi2 = Math.round(verPi2);
 		verPi2 = verPi2 / 100;
+		
 		if (ver == verPi) {
-			System.out.println("using this method aosijdfoiasjdfoiajsdofijasoidfj");
 			int ct = 0;
 
 			for (int i = y; i > 36; i--) {
@@ -240,7 +240,7 @@ public class CarromBoardPanel extends JPanel {
 				coord[0] = new Integer(x);
 				Integer proY = new Integer(y - ct);
 				coord[1] = proY;
-				s.setPath(ct, coord);
+				mTile.setPath(ct, coord);
 				ct++;
 			}
 		}
@@ -253,11 +253,10 @@ public class CarromBoardPanel extends JPanel {
 				coord[0] = new Integer(x);
 				Integer proY = new Integer(y + ct);
 				coord[1] = proY;
-				s.setPath(ct, coord);
+				mTile.setPath(ct, coord);
 				ct++;
 			}
 		} else if ((dir >= 0 && dir < Math.PI / 2) || (dir > Math.PI * 3 / 2 && dir < Math.PI * 2)) {
-			System.out.println("uaosifjaosdjifoaijsdfioajsodfjaosdf");
 			int count = 540;
 			int ct = 0;
 			for (int i = x; i < count; i++) {
@@ -267,14 +266,13 @@ public class CarromBoardPanel extends JPanel {
 				proY = new Integer(y - (int) (ct * Math.tan(dir)));
 				coord[1] = proY;
 
-				s.setPath(ct, coord);
+				mTile.setPath(ct, coord);
 				ct++;
 			}
 
 		}
 
 		else if ((dir > Math.PI / 2 && dir <= Math.PI) || (dir > Math.PI && dir < Math.PI * 3 / 2)) {
-			System.out.println("1j23948120843012384012384098234");
 			int count = 0;
 			int ct = 0;
 			for (int i = x; i > count; i--) {
@@ -282,7 +280,7 @@ public class CarromBoardPanel extends JPanel {
 				coord[0] = new Integer(i);
 				Integer proY = new Integer(y - (int) (ct * Math.tan(Math.PI - dir)));
 				coord[1] = proY;
-				s.setPath(ct, coord);
+				mTile.setPath(ct, coord);
 				ct++;
 			}
 		}
