@@ -8,10 +8,11 @@ public class Tile implements Drawable {
 	private double dir;
 	private int centerX;
 	private int centerY;
+	private int time = 0;
 	private double radius;
 	private ArrayList<Integer[]> path = new ArrayList<Integer[]>();
 
-	public Tile(int xpos, int ypos, double speed, double dir) {
+	public Tile(int xpos, int ypos, int speed, double dir) {
 		this.x = xpos;
 		this.y = ypos;
 		this.speed = speed;
@@ -19,16 +20,19 @@ public class Tile implements Drawable {
 
 	}
 
+	public int getTime(){
+		return this.time;
+	}
+	
+	public void setTime(int timeSet){
+		this.time = timeSet;
+	}
 	public double getSpeed() {
 		return speed;
 	}
 
 	public double getDir() {
 		return dir;
-	}
-	
-	public double getRadius() {
-		return radius;
 	}
 
 	public void setDir(double angle) {
@@ -71,21 +75,25 @@ public class Tile implements Drawable {
 	public ArrayList<Integer[]> getPath() {
 		return this.path;
 	}
-	
-	public void setPath(int idx, Integer[] yVal){
+
+	public void setPath(int idx, Integer[] yVal) {
 		this.path.add(idx, yVal);
+	}
+
+	public boolean collision(Tile t) { // is a tile touching another tile
+		double distance = Math.hypot(this.centerX - t.getCenterX(), this.centerY - t.getCenterY());
+		if (distance == t.getRadius() + this.getRadius())
+			return true;
+		return false;
+	}
+
+	private double getRadius() {
+		return radius;
 	}
 
 	@Override
 	public void draw(Graphics g) {
 		g.drawOval(x, y, 40, 40);
-	}
-
-	public boolean collision(Tile t) { //is a tile touching another tile
-		double distance = Math.hypot(this.centerX - t.getCenterX(), this.centerY - t.getCenterY());
-		if(distance == t.getRadius() + this.getRadius())
-			return true;
-		return false;
 	}
 
 }
