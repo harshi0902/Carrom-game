@@ -1,4 +1,10 @@
-+"<br>" + "<br>" + "If you click the Striker once it will hit the coins in the direction you point it at"
-					+ "<br>" + "<br>"	+ "At the end of the game, whoever has the most points wins!\r\n" + 
+"<html>Player must place Striker on his/ her baseline of the board\r\n" + "<br>" + "<br>"
+					+ "There are NO half reds, which means you can not place the Striker in between the red circles\r\n"
+					+ "<br>" + "<br>"
+					+"Player can get points by hitting the coin into one of the four corners which are known as 'goals'\r\n" + "<br>" + "<br>"
+					+ "If you click the Striker once it will hit the coin in the direction you point it at" + "<br>"
+					+ "<br>" + "At the end of the game, whoever has the most points wins!\r\n" + "<br>" + "<br>"
 					
- "<br>" + "<br>"+ "You have 20 seconds for your turn\r\n"
+					+ "Press the Left Arrow Key to move the arrow to the Left" + "<br>" + "<br>"
+					+ "Press the Right Arrow Key to move the arrow to the Right" + "<br>" + "<br>"
+					+ "Press the Space Bar Key to shoot the Striker" + "</html>"
