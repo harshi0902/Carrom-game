@@ -19,6 +19,7 @@ public class Striker extends Tile {
 		super(posX, posY, 0, 0);
 		isClicked = false;
 		isHighlighted = false;
+		super.setRadius(11.5);
 		try {
 			img = ImageIO.read(getClass().getResource("line.png")); // name of
 																	// file of
@@ -86,5 +87,8 @@ public class Striker extends Tile {
 			super.setDir(2 * Math.PI - super.getDir());
 		}
 	}
-
+	
+	public String toString(){
+		return "stiker";
+	}
 }
