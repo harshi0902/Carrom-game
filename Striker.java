@@ -1,6 +1,7 @@
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.font.ShapeGraphicAttribute;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -13,7 +14,7 @@ public class Striker extends Tile{
 	private boolean isHighlighted;
 	private AffineTransform strikerTrans = new AffineTransform();
 	private BufferedImage img = null;
-	
+
 	public Striker(int posX, int posY) {
 		super(posX, posY, 0, 0);
 		isClicked = false;
@@ -71,6 +72,13 @@ public class Striker extends Tile{
 	public void incrementAngle(double d) {
 		double angle = super.getDir();
 		super.setDir(angle += d);
+		if(super.getDir()>=2*Math.PI){
+			super.setDir(super.getDir()-2*Math.PI);
+		}
+		else if(super.getDir()<= 0){
+			super.setDir(2*Math.PI-super.getDir());
+		}
+		System.out.println(super.getDir());
 	}
 
 }
