@@ -9,6 +9,7 @@ import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 import javax.swing.AbstractAction;
@@ -28,10 +29,12 @@ public class CarromBoardPanel extends JPanel {
 	private static Board board = new Board();
 	private int score = 0;
 	private static JFrame frame = new JFrame("Carrom Board!");
-	private static Timer t = new Timer(100, null);
+	private static Timer t = new Timer(1, null);
 	private static JPanel panel = new CarromBoardPanel();
 	private static Striker s = (Striker) board.getTiles().get(board.strikerIndex());
 	private static boolean isStrikerSelected = false;
+	private static boolean isHit = false;
+	private static int timeCount = 0;
 
 	public static void main(String[] args) {
 		frame.setVisible(true);
@@ -64,7 +67,6 @@ public class CarromBoardPanel extends JPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				System.out.println("dir to shoot: " + (s.getDir() % (Math.PI * 2)));
 				if (isStrikerSelected) {
 					t.start();
 					s.unHighlight();
@@ -80,7 +82,6 @@ public class CarromBoardPanel extends JPanel {
 			e.printStackTrace();
 		}
 
-
 		JButton button = new JButton("RULES"); // creating first button
 		panel.add(button);
 		button.addActionListener(new Action1());
@@ -90,9 +91,9 @@ public class CarromBoardPanel extends JPanel {
 			public void actionPerformed(ActionEvent arg0) {
 				panel.requestFocusInWindow();
 			}
-	
+
 		});
-		
+
 		JButton button2 = new JButton("RESET");
 		panel.add(button2);
 		button2.addActionListener(new ActionListener() {
@@ -103,7 +104,7 @@ public class CarromBoardPanel extends JPanel {
 				board = new Board();
 				frame.repaint();
 			}
-	
+
 		});
 
 	}
@@ -114,6 +115,10 @@ public class CarromBoardPanel extends JPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				if (!isHit) {
+					System.out.println("hi");
+					hit();
+				}
 				tick();
 			}
 
@@ -188,6 +193,8 @@ public class CarromBoardPanel extends JPanel {
 					+ "Press the Left Arrow Key to move the arrow to the Left" + "<br>" + "<br>"
 					+ "Press the Right Arrow Key to move the arrow to the Right" + "<br>" + "<br>"
 					+ "Press the Enter Key to shoot the Striker" + "</html>");
+			label.setFont(new Font("Times New Roman", Font.BOLD, 14));
+			frame2.getContentPane().setBackground(Color.CYAN);
 			Icon imgIcon = new ImageIcon(this.getClass().getResource("rules.gif"));
 			label.setIcon(imgIcon);
 			label.setBounds(668, 43, 46, 14); // for example, you can use your
@@ -198,9 +205,81 @@ public class CarromBoardPanel extends JPanel {
 	}
 
 	public void tick() {
-		System.out.println("tick");
-		s.move(s.getX() + 1, s.getY());
+
+		if (s.getX() < 539 && s.getX() > 36 && s.getY() > 36)
+			s.move(s.getPath().get(timeCount)[0], s.getPath().get(timeCount)[1]);
 		this.repaint();
+		timeCount++;
+	}
+
+	public void hit() {
+		isHit = true;
+		double dir = s.getDir();
+		int x = s.getX();
+		int y = s.getY();
+		System.out.println("dir: " + dir);
+	
+		
+		if (dir == Math.PI/2) {
+			System.out.println("using this method aosijdfoiasjdfoiajsdofijasoidfj");
+			int ct = 0;
+			for (int i = y; i < 36; i++) {
+				Integer[] coord = new Integer[2];
+				coord[0] = new Integer(x);
+				Integer proY = new Integer(ct);
+				coord[1] = proY;
+				s.setPath(ct, coord);
+				ct++;
+			}
+		}
+
+		else if (dir == Math.PI * 3 / 2) {
+			int count = 0;
+			int ct = 0;
+			for (int i = x; i > count; i--) {
+				Integer[] coord = new Integer[2];
+				coord[0] = new Integer(x);
+				Integer proY = new Integer(y - (int) (ct * Math.tan(Math.PI - dir)));
+				coord[1] = proY;
+				s.setPath(ct, coord);
+				ct++;
+			}
+		}
+		else if ((dir >= 0 && dir < Math.PI / 2) || (dir > Math.PI * 3 / 2 && dir < Math.PI * 2)) {
+			System.out.println("uaosifjaosdjifoaijsdfioajsodfjaosdf");
+			int count = 540;
+			int ct = 0;
+			for (int i = x; i < count; i++) {
+				Integer[] coord = new Integer[2];
+				coord[0] = new Integer(i);
+				Integer proY;
+				proY = new Integer(y - (int) (ct * Math.tan(dir)));
+				coord[1] = proY;
+
+				s.setPath(ct, coord);
+				ct++;
+			}
+
+		}
+
+		else if ((dir > Math.PI / 2 && dir <= Math.PI) || (dir > Math.PI && dir < Math.PI * 3 / 2)) {
+			System.out.println("1j23948120843012384012384098234");
+			int count = 0;
+			int ct = 0;
+			for (int i = x; i > count; i--) {
+				Integer[] coord = new Integer[2];
+				coord[0] = new Integer(i);
+				Integer proY = new Integer(y - (int) (ct * Math.tan(Math.PI - dir)));
+				coord[1] = proY;
+				s.setPath(ct, coord);
+				ct++;
+			}
+		}
+
+		for (Integer[] in : s.getPath()) {
+			System.out.print("(" + in[0] + ", (" + in[1] + ")" + "   ");
+		}
+
 	}
 
 	public void paintComponent(Graphics g) {
