@@ -31,6 +31,10 @@ public class Carrom extends Tile{
 		return pointVal;
 	}
 	
+	public double getRadius() {
+		return carromDiameter/2;
+	}
+	
 	@Override
 	public void draw(Graphics g) {
 		g.setColor(c);
