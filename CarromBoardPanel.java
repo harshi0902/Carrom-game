@@ -10,6 +10,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.ArrayList;
+
 import javax.imageio.ImageIO;
 import javax.swing.AbstractAction;
 import javax.swing.Icon;
@@ -29,6 +30,7 @@ public class CarromBoardPanel extends JPanel {
 	private int score = 0;
 	private static JFrame frame = new JFrame("Carrom Board!");
 	private static Timer t = new Timer(1, null);
+
 	private static JPanel panel = new CarromBoardPanel();
 	private static Striker s = (Striker) board.getTiles().get(board.strikerIndex());
 	private static boolean isStrikerSelected = false;
@@ -40,6 +42,7 @@ public class CarromBoardPanel extends JPanel {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.add(panel);
 		frame.pack();
+
 		frame.setResizable(false);
 
 		panel.getInputMap().put(KeyStroke.getKeyStroke("LEFT"), "decreaseAngle");
@@ -69,6 +72,8 @@ public class CarromBoardPanel extends JPanel {
 				if (isStrikerSelected) {
 					t.start();
 					s.unHighlight();
+					hit(s);
+					s.setSpeed(15);
 				}
 				frame.repaint();
 			}
@@ -110,6 +115,7 @@ public class CarromBoardPanel extends JPanel {
 
 	public CarromBoardPanel() {
 		this.setPreferredSize(new Dimension(this.SIZE_PANEL, SIZE_PANEL));
+
 		t.addActionListener(new ActionListener() {
 
 			@Override
@@ -117,10 +123,8 @@ public class CarromBoardPanel extends JPanel {
 				if (!isHit) {
 					hit(s);
 				}
-				
-					tick();
+				tick();
 			}
-
 		});
 
 		this.addMouseListener(new MouseListener() {
@@ -204,22 +208,33 @@ public class CarromBoardPanel extends JPanel {
 	}
 
 	public void tick() {
-		boolean noWall = s.getX() < 539 && s.getX() > 36 && s.getY() > 36;
-		boolean noTileCollision = true; //iterates through all tiles + checks if they are hitting each other
-		ArrayList<Tile> tiles = board.getTiles();
-		for(int i = 0; i < tiles.size(); i++) {
-			for(int j = i; j < tiles.size(); j++) {
-				if(tiles.get(i).collision(tiles.get(j)))
-					noTileCollision = false;
-			}
-		}
-		if (noWall && noTileCollision)
-			s.move(s.getPath().get(timeCount)[0], s.getPath().get(timeCount)[1]);
-		this.repaint();
-		timeCount++;
+
+//		boolean noWall = s.getX() < 539 && s.getX() > 36 && s.getY() > 36 && s.getY() < 541;
+//		boolean noTileCollision = true; // iterates through all tiles + checks
+//										// if they are hitting each other
+//		ArrayList<Tile> tiles = board.getTiles();
+//		for (int i = 0; i < tiles.size(); i++) {
+//			for (int j = i; j < tiles.size(); j++) {
+//				if (tiles.get(i).collision(tiles.get(j)))
+//					noTileCollision = false;
+//			}
+//		}
+//		System.out.println("" + noWall + noTileCollision);
+//		if (noWall || noTileCollision)
+//			s.move(s.getPath().get(timeCount)[0], s.getPath().get(timeCount)[1]);
+//		this.repaint();
+//		timeCount++;
+		if(s.getSpeed()>0)
+		s.setSpeed(s.getSpeed()-0.5);
+		 speedTest();
+		 this.repaint();
 	}
 
-	public void hit(Tile mTile) {
+	public void speedTest() {
+		s.move(s.getX() + (int) s.getSpeed(), s.getY());
+	}
+
+	public static void hit(Tile mTile) {
 		isHit = true;
 		double dir = s.getDir();
 		int x = mTile.getX();
@@ -238,7 +253,7 @@ public class CarromBoardPanel extends JPanel {
 		verPi2 = verPi2 * 100;
 		verPi2 = Math.round(verPi2);
 		verPi2 = verPi2 / 100;
-		
+
 		if (ver == verPi) {
 			int ct = 0;
 
