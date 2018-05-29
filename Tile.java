@@ -20,13 +20,14 @@ public class Tile implements Drawable {
 
 	}
 
-	public int getTime(){
+	public int getTime() {
 		return this.time;
 	}
-	
-	public void setTime(int timeSet){
+
+	public void setTime(int timeSet) {
 		this.time = timeSet;
 	}
+
 	public double getSpeed() {
 		return speed;
 	}
@@ -53,11 +54,12 @@ public class Tile implements Drawable {
 	}
 
 	public int getCenterX() {
-		return this.centerX;
+		
+		return (int) (this.x+radius);
 	}
 
 	public int getCenterY() {
-		return this.centerY;
+		return (int) (this.y+radius);
 	}
 
 	public void setCenterX(int cenX) {
@@ -80,16 +82,19 @@ public class Tile implements Drawable {
 		this.path.add(idx, yVal);
 	}
 
-	public boolean collision(Tile t) { // is a tile touching another tile
-		double distance = Math.hypot(this.centerX - t.getCenterX(), this.centerY - t.getCenterY());
-		if (distance == t.getRadius() + this.getRadius())
-			return true;
-		return false;
-	}
 
-	private double getRadius() {
-		return radius;
+	public void setRadius(double rad){
+		this.radius = rad;
 	}
+	
+	public double getRadius(){
+		return this.radius;
+	}
+	
+	public void clearPath(){
+		this.path = new ArrayList<Integer[]>();
+	}
+	
 
 	@Override
 	public void draw(Graphics g) {
