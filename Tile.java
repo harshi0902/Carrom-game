@@ -1,4 +1,5 @@
 import java.awt.Graphics;
+import java.util.ArrayList;
 
 public class Tile implements Drawable {
 	private int x;
@@ -7,6 +8,7 @@ public class Tile implements Drawable {
 	private double dir;
 	private int centerX;
 	private int centerY;
+	private ArrayList<Integer[]> path = new ArrayList<Integer[]>();
 
 	public Tile(int xpos, int ypos, double speed, double dir) {
 		this.x = xpos;
@@ -48,6 +50,7 @@ public class Tile implements Drawable {
 	public int getCenterY() {
 		return this.centerY;
 	}
+
 	public void setCenterX(int cenX) {
 		this.centerX = cenX;
 	}
@@ -58,6 +61,14 @@ public class Tile implements Drawable {
 
 	public int getY() {
 		return this.y;
+	}
+
+	public ArrayList<Integer[]> getPath() {
+		return this.path;
+	}
+	
+	public void setPath(int idx, Integer[] yVal){
+		this.path.add(idx, yVal);
 	}
 
 	@Override
