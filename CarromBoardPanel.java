@@ -35,7 +35,7 @@ public class CarromBoardPanel extends JPanel {
 	private static JPanel panel = new CarromBoardPanel();
 	private static Striker s = (Striker) board.getTiles().get(board.strikerIndex());
 	private static boolean isStrikerSelected = false;
-	private static boolean isHit = false;
+	private boolean gameOver = false;
 
 	public static void main(String[] args) {
 
@@ -207,126 +207,135 @@ public class CarromBoardPanel extends JPanel {
 
 	public void tick() {
 
-		// for (int i = 0; i < tiles.size(); i++) {
-		// for (int j = i + 1; j < tiles.size(); j++) {
-		// if (collision(tiles.get(i), tiles.get(j))) { // if these two
-		//
-		// Tile one = tiles.get(i);
-		// Tile two = tiles.get(j);
-		// int difY = Math.abs(two.getCenterY() - one.getCenterY());
-		//
-		// double angle = Math.asin((difY) / (one.getRadius() +
-		// two.getRadius()));
-		// double a = two.getRadius() * Math.cos(angle);
-		// double b = two.getRadius() * Math.sin(angle);
-		//
-		// double contactX = (double) two.getCenterX() + a;
-		// double contactY = (double) two.getCenterY() + b;
-		//
-		// double tanSlope = -((double) two.getX() - contactX) / ((double)
-		// two.getY() - contactY);
-		// double angleSlope = Math.atan(tanSlope);
-		//
-		// double difAngleOne = one.getDir() - angleSlope;
-		// double difAngleTwo = two.getDir() - angleSlope;
-		// one.setDir(Math.PI - difAngleOne);
-		// hit(one);
-		// one.setSpeed(15);
-		// one.setDir(Math.PI - difAngleTwo);
-		// hit(two);
-		// two.setSpeed(15);
-		// }
-		// }
-		// }
+		for (int i = 0; i < tiles.size(); i++) {
+			for (int j = i + 1; j < tiles.size(); j++) {
+				if (collision(tiles.get(i), tiles.get(j))) { // if these two
 
-		if (s.getX() >= 523 && s.getY() <= 70 || s.getX() <= 75 && s.getY() <= 70 || s.getX() >= 523 && s.getY() >= 517
-				|| s.getX() <= 75 && s.getY() >= 517) {
-			s.scored();
-			score++;
-			t.stop();
+					Tile one = tiles.get(i);
+					Tile two = tiles.get(j);
+					int difY = Math.abs(two.getCenterY() - one.getCenterY());
+
+					double angle = Math.asin((difY) / (one.getRadius() +
+							two.getRadius()));
+					double a = two.getRadius() * Math.cos(angle);
+					double b = two.getRadius() * Math.sin(angle);
+
+					double contactX = (double) two.getCenterX() + a;
+					double contactY = (double) two.getCenterY() + b;
+
+					double tanSlope = -((double) two.getX() - contactX) / ((double)
+							two.getY() - contactY);
+					double angleSlope = Math.atan(tanSlope);
+
+					double difAngleOne = one.getDir() - angleSlope;
+					double difAngleTwo = two.getDir() - angleSlope;
+					one.setDir(Math.PI - difAngleOne);
+					
+					hit(one);
+					one.setSpeed(15);
+					one.setDir(Math.PI - difAngleTwo);
+					
+					hit(two);
+					two.setSpeed(15);
+				}
+			}
 		}
+		
+		for(Tile ti : tiles) {
+			if (ti.getX() >= 523 && ti.getY() <= 70 || ti.getX() <= 75 && ti.getY() <= 70 || ti.getX() >= 523 && ti.getY() >= 517
+					|| ti.getX() <= 75 && ti.getY() >= 517) {
+				ti.scored();
+				if(ti instanceof Carrom) {
+					score++;
+				}
+				else {
+					gameOver = true;
+				}
+				t.stop();
+			}
 
-		if (s.getY() <= 36) { // if striker hits upper wall
-			double roundDir = s.getDir() * 10;
-			roundDir = Math.round(roundDir);
-			roundDir /= 10;
+			if (ti.getY() <= 36) { // if striker hits upper wall
+				double roundDir = ti.getDir() * 10;
+				roundDir = Math.round(roundDir);
+				roundDir /= 10;
 
-			double verPi = Math.PI / 2;
-			verPi = verPi * 10;
-			verPi = Math.round(verPi);
-			verPi = verPi / 10;
+				double verPi = Math.PI / 2;
+				verPi = verPi * 10;
+				verPi = Math.round(verPi);
+				verPi = verPi / 10;
 
-			if (roundDir == verPi) {
-				System.out.println("90");
-				s.setDir((Math.PI * 3) / 2);
+				if (roundDir == verPi) {
+					System.out.println("90");
+					ti.setDir((Math.PI * 3) / 2);
+
+				}
+
+				else {
+					ti.setDir((2 * Math.PI) - ti.getDir());
+				}
+
+				ti.setTime(0);
+				hit(ti);
+			}
+
+			else if (ti.getY() >= 540) { // hits lower wall
+
+				double roundDir = ti.getDir() * 10;
+				roundDir = Math.round(roundDir);
+				roundDir /= 10;
+
+				double verPi = 3 * Math.PI / 2;
+				verPi = verPi * 10;
+				verPi = Math.round(verPi);
+				verPi = verPi / 10;
+
+				if (roundDir == verPi) {
+					ti.setDir(Math.PI / 2);
+				} else {
+					ti.setDir(2 * Math.PI - ti.getDir());
+				}
+				ti.setTime(0);
+				hit(ti);
+				System.out.println(ti.getDir());
 
 			}
 
-			else {
-				s.setDir((2 * Math.PI) - s.getDir());
-			}
+			else if (ti.getX() <= 36) { // hits left wall
+				double roundDir = ti.getDir() * 10;
+				roundDir = Math.round(roundDir);
+				roundDir /= 10;
 
-			s.setTime(0);
-			hit(s);
-		}
+				double horPi = Math.PI;
+				horPi = horPi * 10;
+				horPi = Math.round(horPi);
+				horPi = horPi / 10;
 
-		else if (s.getY() >= 540) { // hits lower wall
+				if (roundDir == horPi) {
+					ti.setDir(0);
+				} else {
+					ti.setDir((Math.PI) - ti.getDir());
+				}
+				ti.setTime(0);
+				hit(ti);
 
-			double roundDir = s.getDir() * 10;
-			roundDir = Math.round(roundDir);
-			roundDir /= 10;
+			} else if (ti.getX() >= 545) { // hits right wall
+				double roundDir = ti.getDir() * 10;
+				roundDir = Math.round(roundDir);
+				roundDir /= 10;
 
-			double verPi = 3 * Math.PI / 2;
-			verPi = verPi * 10;
-			verPi = Math.round(verPi);
-			verPi = verPi / 10;
+				double horPi = 0.0;
 
-			if (roundDir == verPi) {
-				s.setDir(Math.PI / 2);
-			} else {
-				s.setDir(2 * Math.PI - s.getDir());
-			}
-			s.setTime(0);
-			hit(s);
-			System.out.println(s.getDir());
+				if (roundDir == horPi) {
+					ti.setDir(Math.PI);
+				} else {
+					ti.setDir((Math.PI) - ti.getDir());
+				}
 
-		}
-
-		else if (s.getX() <= 36) { // hits left wall
-			double roundDir = s.getDir() * 10;
-			roundDir = Math.round(roundDir);
-			roundDir /= 10;
-
-			double horPi = Math.PI;
-			horPi = horPi * 10;
-			horPi = Math.round(horPi);
-			horPi = horPi / 10;
-
-			if (roundDir == horPi) {
-				s.setDir(0);
-			} else {
-				s.setDir((Math.PI) - s.getDir());
-			}
-			s.setTime(0);
-			hit(s);
-
-		} else if (s.getX() >= 545) { // hits right wall
-			double roundDir = s.getDir() * 10;
-			roundDir = Math.round(roundDir);
-			roundDir /= 10;
-
-			double horPi = 0.0;
-
-			if (roundDir == horPi) {
-				s.setDir(Math.PI);
-			} else {
-				s.setDir((Math.PI) - s.getDir());
-			}
-
-			s.setTime(0);
-			hit(s);
-			for(Integer[] in : s.getPath()){
-				System.out.print("(" + in[0] + ", " + in[1] + ")" + "    ");
+				ti.setTime(0);
+				hit(ti);
+				for(Integer[] in : ti.getPath()){
+					System.out.print("(" + in[0] + ", " + in[1] + ")" + "    ");
+				}
 			}
 		}
 		for (Tile ti : tiles) {
