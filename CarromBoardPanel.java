@@ -206,40 +206,39 @@ public class CarromBoardPanel extends JPanel {
 
 	public void tick() {
 
-		// for (int i = 0; i < tiles.size(); i++) {
-		// for (int j = i + 1; j < tiles.size(); j++) {
-		// if (collision(tiles.get(i), tiles.get(j))) { // if these two
-		//
-		// Tile one = tiles.get(i);
-		// Tile two = tiles.get(j);
-		//
-		// int difX = Math.abs(two.getCenterX() - one.getCenterX());
-		// int difY = Math.abs(two.getCenterY() - one.getCenterY());
-		//
-		// double angle = Math.asin((difY) / (one.getRadius() +
-		// two.getRadius()));
-		// double a = two.getRadius() * Math.cos(angle);
-		// double b = two.getRadius() * Math.sin(angle);
-		//
-		// double contactX = (double) two.getCenterX() + a;
-		// double contactY = (double) two.getCenterY() + b;
-		//
-		// double tanSlope = -((double) two.getX() - contactX) / ((double)
-		// two.getY() - contactY);
-		// double angleSlope = Math.atan(tanSlope);
-		//
-		// double difAngleOne = one.getDir() - angleSlope;
-		// double difAngleTwo = two.getDir() - angleSlope;
-		// one.setDir(Math.PI - difAngleOne);
-		// hit(one);
-		// one.setSpeed(15);
-		// one.setDir(Math.PI - difAngleTwo);
-		// hit(two);
-		// two.setSpeed(15);
-		// }
-		// }
-		// }
-		if(s.getX() >= 523 && s.getY() <= 70 || s.getX() <= 75 && s.getY() <= 70 || s.getX() >= 523
+//		for (int i = 0; i < tiles.size(); i++) {
+//			for (int j = i + 1; j < tiles.size(); j++) {
+//				if (collision(tiles.get(i), tiles.get(j))) { // if these two
+//
+//					Tile one = tiles.get(i);
+//					Tile two = tiles.get(j);
+//					int difY = Math.abs(two.getCenterY() - one.getCenterY());
+//
+//					double angle = Math.asin((difY) / (one.getRadius() +
+//							two.getRadius()));
+//					double a = two.getRadius() * Math.cos(angle);
+//					double b = two.getRadius() * Math.sin(angle);
+//
+//					double contactX = (double) two.getCenterX() + a;
+//					double contactY = (double) two.getCenterY() + b;
+//
+//					double tanSlope = -((double) two.getX() - contactX) / ((double)
+//							two.getY() - contactY);
+//					double angleSlope = Math.atan(tanSlope);
+//
+//					double difAngleOne = one.getDir() - angleSlope;
+//					double difAngleTwo = two.getDir() - angleSlope;
+//					one.setDir(Math.PI - difAngleOne);
+//					hit(one);
+//					one.setSpeed(15);
+//					one.setDir(Math.PI - difAngleTwo);
+//					hit(two);
+//					two.setSpeed(15);
+//				}
+//			}
+//		}
+		
+		if(s.getX() >= 523 && s.getY() <= 70 || s.getX() <= 75 && s.getY() <= 70 || s.getX() >= 523 //if it goes into a goal
 				&& s.getY() >= 517 || s.getX() <= 75 && s.getY() >= 517) {
 			s.scored();
 			score++;
@@ -272,7 +271,7 @@ public class CarromBoardPanel extends JPanel {
 			hit(s);
 		}
 
-		else if (s.getY() >= 530) {
+		else if (s.getY() >= 530) { //hits lower wall
 
 			double roundDir = s.getDir() * 10;
 			roundDir = Math.round(roundDir);
@@ -298,7 +297,7 @@ public class CarromBoardPanel extends JPanel {
 			hit(s);
 		}
 
-		else if (s.getX() <= 36) {
+		else if (s.getX() <= 36) { //hits left wall
 			double roundDir = s.getDir() * 10;
 			roundDir = Math.round(roundDir);
 			roundDir /= 10;
@@ -319,7 +318,7 @@ public class CarromBoardPanel extends JPanel {
 			s.setTime(0);
 			hit(s);
 
-		} else if (s.getX() >= 536) {
+		} else if (s.getX() >= 536) { //hits right wall
 			double roundDir = s.getDir() * 10;
 			roundDir = Math.round(roundDir);
 			roundDir /= 10;
@@ -352,7 +351,7 @@ public class CarromBoardPanel extends JPanel {
 		}
 		System.out.println(s.getX() + ", " + "" + s.getY());
 		System.out.println(s.getSpeed());
-		this.repaint();
+		frame.repaint();
 
 	}
 
@@ -372,8 +371,9 @@ public class CarromBoardPanel extends JPanel {
 	}
 
 	public static void hit(Tile mTile) {
-		mTile.setDir(mTile.getDir() * 0.9);
+		mTile.setDir(mTile.getDir() * 0.9); //???
 		mTile.clearPath();
+		
 		double dir = s.getDir();
 		int x = mTile.getX();
 		int y = mTile.getY();
@@ -415,7 +415,9 @@ public class CarromBoardPanel extends JPanel {
 				mTile.setPath(ct, coord);
 				ct++;
 			}
-		} else if ((dir >= 0 && dir < Math.PI / 2) || (dir > Math.PI * 3 / 2 && dir < Math.PI * 2)) {
+		} 
+		
+		else if ((dir >= 0 && dir < Math.PI / 2) || (dir > Math.PI * 3 / 2 && dir < Math.PI * 2)) {
 			int count = 565;
 			int ct = 0;
 			for (int i = x; i < count; i++) {
