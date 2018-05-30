@@ -12,6 +12,7 @@ import java.io.PrintStream;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
+import javax.print.DocFlavor.INPUT_STREAM;
 import javax.swing.AbstractAction;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -72,7 +73,7 @@ public class CarromBoardPanel extends JPanel {
 					t.start();
 					s.unHighlight();
 					hit(s);
-					s.setSpeed(15);
+					s.setSpeed(20);
 				}
 				frame.repaint();
 			}
@@ -206,45 +207,45 @@ public class CarromBoardPanel extends JPanel {
 
 	public void tick() {
 
-//		for (int i = 0; i < tiles.size(); i++) {
-//			for (int j = i + 1; j < tiles.size(); j++) {
-//				if (collision(tiles.get(i), tiles.get(j))) { // if these two
-//
-//					Tile one = tiles.get(i);
-//					Tile two = tiles.get(j);
-//					int difY = Math.abs(two.getCenterY() - one.getCenterY());
-//
-//					double angle = Math.asin((difY) / (one.getRadius() +
-//							two.getRadius()));
-//					double a = two.getRadius() * Math.cos(angle);
-//					double b = two.getRadius() * Math.sin(angle);
-//
-//					double contactX = (double) two.getCenterX() + a;
-//					double contactY = (double) two.getCenterY() + b;
-//
-//					double tanSlope = -((double) two.getX() - contactX) / ((double)
-//							two.getY() - contactY);
-//					double angleSlope = Math.atan(tanSlope);
-//
-//					double difAngleOne = one.getDir() - angleSlope;
-//					double difAngleTwo = two.getDir() - angleSlope;
-//					one.setDir(Math.PI - difAngleOne);
-//					hit(one);
-//					one.setSpeed(15);
-//					one.setDir(Math.PI - difAngleTwo);
-//					hit(two);
-//					two.setSpeed(15);
-//				}
-//			}
-//		}
-		
-		if(s.getX() >= 523 && s.getY() <= 70 || s.getX() <= 75 && s.getY() <= 70 || s.getX() >= 523 //if it goes into a goal
-				&& s.getY() >= 517 || s.getX() <= 75 && s.getY() >= 517) {
+		// for (int i = 0; i < tiles.size(); i++) {
+		// for (int j = i + 1; j < tiles.size(); j++) {
+		// if (collision(tiles.get(i), tiles.get(j))) { // if these two
+		//
+		// Tile one = tiles.get(i);
+		// Tile two = tiles.get(j);
+		// int difY = Math.abs(two.getCenterY() - one.getCenterY());
+		//
+		// double angle = Math.asin((difY) / (one.getRadius() +
+		// two.getRadius()));
+		// double a = two.getRadius() * Math.cos(angle);
+		// double b = two.getRadius() * Math.sin(angle);
+		//
+		// double contactX = (double) two.getCenterX() + a;
+		// double contactY = (double) two.getCenterY() + b;
+		//
+		// double tanSlope = -((double) two.getX() - contactX) / ((double)
+		// two.getY() - contactY);
+		// double angleSlope = Math.atan(tanSlope);
+		//
+		// double difAngleOne = one.getDir() - angleSlope;
+		// double difAngleTwo = two.getDir() - angleSlope;
+		// one.setDir(Math.PI - difAngleOne);
+		// hit(one);
+		// one.setSpeed(15);
+		// one.setDir(Math.PI - difAngleTwo);
+		// hit(two);
+		// two.setSpeed(15);
+		// }
+		// }
+		// }
+
+		if (s.getX() >= 523 && s.getY() <= 70 || s.getX() <= 75 && s.getY() <= 70 || s.getX() >= 523 && s.getY() >= 517
+				|| s.getX() <= 75 && s.getY() >= 517) {
 			s.scored();
 			score++;
 			t.stop();
 		}
-			
+
 		if (s.getY() <= 36) { // if striker hits upper wall
 			double roundDir = s.getDir() * 10;
 			roundDir = Math.round(roundDir);
@@ -263,15 +264,13 @@ public class CarromBoardPanel extends JPanel {
 
 			else {
 				s.setDir((2 * Math.PI) - s.getDir());
-				System.out.println("roundDir: " + roundDir + " currentDir: " + s.getDir());
 			}
 
-			s.setSpeed(s.getSpeed() * 0.5);
 			s.setTime(0);
 			hit(s);
 		}
 
-		else if (s.getY() >= 530) { //hits lower wall
+		else if (s.getY() >= 540) { // hits lower wall
 
 			double roundDir = s.getDir() * 10;
 			roundDir = Math.round(roundDir);
@@ -283,21 +282,17 @@ public class CarromBoardPanel extends JPanel {
 			verPi = verPi / 10;
 
 			if (roundDir == verPi) {
-				System.out.println("90");
-				s.setDir(Math.PI);
-			} else if (s.getDir() > verPi) {
+				s.setDir(Math.PI / 2);
+			} else {
 				s.setDir(2 * Math.PI - s.getDir());
 			}
-
-			else if (s.getDir() < verPi) {
-				s.setDir((2 * Math.PI) - s.getDir());
-			}
-			s.setSpeed(s.getSpeed() * 0.5);
 			s.setTime(0);
 			hit(s);
+			System.out.println(s.getDir());
+
 		}
 
-		else if (s.getX() <= 36) { //hits left wall
+		else if (s.getX() <= 36) { // hits left wall
 			double roundDir = s.getDir() * 10;
 			roundDir = Math.round(roundDir);
 			roundDir /= 10;
@@ -308,30 +303,26 @@ public class CarromBoardPanel extends JPanel {
 			horPi = horPi / 10;
 
 			if (roundDir == horPi) {
-				System.out.println("180");
 				s.setDir(0);
 			} else {
 				s.setDir((2 * Math.PI) - s.getDir());
-				System.out.println("roundDir: " + roundDir + " currentDir: " + s.getDir());
 			}
-			s.setSpeed(s.getSpeed() * 0.5);
 			s.setTime(0);
 			hit(s);
 
-		} else if (s.getX() >= 536) { //hits right wall
+		} else if (s.getX() >= 536) { // hits right wall
 			double roundDir = s.getDir() * 10;
 			roundDir = Math.round(roundDir);
 			roundDir /= 10;
 
-			double horPi = 0;
+			double horPi = 0.0;
 
 			if (roundDir == horPi) {
-				System.out.println("0");
 				s.setDir(Math.PI);
 			} else {
 				s.setDir((2 * Math.PI) - s.getDir());
 			}
-			
+
 			s.setTime(0);
 			hit(s);
 		}
@@ -344,13 +335,10 @@ public class CarromBoardPanel extends JPanel {
 				if (ti.getSpeed() - 0.1 > 0) {
 					ti.setSpeed(ti.getSpeed() - 0.1);
 				}
-				if (s.getSpeed() < 1) {
-					t.stop();
-				}
+
 			}
 		}
-		System.out.println(s.getX() + ", " + "" + s.getY());
-		System.out.println(s.getSpeed());
+
 		frame.repaint();
 
 	}
@@ -371,9 +359,11 @@ public class CarromBoardPanel extends JPanel {
 	}
 
 	public static void hit(Tile mTile) {
-		mTile.setDir(mTile.getDir() * 0.9); //???
+		if (mTile.getSpeed() > 1) {
+			mTile.setSpeed(mTile.getSpeed() - 1);
+		}
 		mTile.clearPath();
-		
+
 		double dir = s.getDir();
 		int x = mTile.getX();
 		int y = mTile.getY();
@@ -393,7 +383,7 @@ public class CarromBoardPanel extends JPanel {
 
 		if (ver == verPi) {
 			int ct = 0;
-
+			System.out.println("its the one");
 			for (int i = y; i >= 0; i--) {
 				Integer[] coord = new Integer[2];
 				coord[0] = new Integer(x);
@@ -415,8 +405,8 @@ public class CarromBoardPanel extends JPanel {
 				mTile.setPath(ct, coord);
 				ct++;
 			}
-		} 
-		
+		}
+
 		else if ((dir >= 0 && dir < Math.PI / 2) || (dir > Math.PI * 3 / 2 && dir < Math.PI * 2)) {
 			int count = 565;
 			int ct = 0;
