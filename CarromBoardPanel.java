@@ -287,13 +287,13 @@ public class CarromBoardPanel extends JPanel {
 				}
 
 				else {
-					double newAngle = (2 * Math.PI) - ti.getDir();
+					double newAngle = ti.getDir();
 					if (newAngle >= 2 * Math.PI) {
 						newAngle = newAngle - 2 * Math.PI;
 					} else if (newAngle <= 0) {
 						newAngle = 2 * Math.PI - newAngle;
 					}
-					ti.setDir(newAngle);
+					ti.setDir((2*Math.PI) - newAngle);
 				}
 
 				ti.setTime(0);
@@ -314,13 +314,13 @@ public class CarromBoardPanel extends JPanel {
 				if (roundDir == verPi) {
 					ti.setDir(Math.PI / 2);
 				} else {
-					double newAngle = (2 * Math.PI) - ti.getDir();
+					double newAngle = ti.getDir();
 					if (newAngle >= 2 * Math.PI) {
 						newAngle = newAngle - 2 * Math.PI;
 					} else if (newAngle <= 0) {
 						newAngle = 2 * Math.PI - newAngle;
 					}
-					ti.setDir(newAngle);
+					ti.setDir((2*Math.PI) - newAngle);
 				}
 				ti.setTime(0);
 				hit(ti);
@@ -341,13 +341,13 @@ public class CarromBoardPanel extends JPanel {
 				if (roundDir == horPi) {
 					ti.setDir(0);
 				} else {
-					double newAngle = (Math.PI) - ti.getDir();
+					double newAngle = ti.getDir();
 					if (newAngle >= 2 * Math.PI) {
 						newAngle = newAngle - 2 * Math.PI;
 					} else if (newAngle <= 0) {
 						newAngle = 2 * Math.PI - newAngle;
 					}
-					ti.setDir(newAngle);
+					ti.setDir(Math.PI - newAngle);
 				}
 				ti.setTime(0);
 				hit(ti);
@@ -362,13 +362,13 @@ public class CarromBoardPanel extends JPanel {
 				if (roundDir == horPi) {
 					ti.setDir(Math.PI);
 				} else {
-					double newAngle = (Math.PI) - ti.getDir();
+					double newAngle = ti.getDir();
 					if (newAngle >= 2 * Math.PI) {
 						newAngle = newAngle - 2 * Math.PI;
 					} else if (newAngle <= 0) {
 						newAngle = 2 * Math.PI - newAngle;
 					}
-					ti.setDir(newAngle);
+					ti.setDir(Math.PI - newAngle);
 				}
 
 				ti.setTime(0);
