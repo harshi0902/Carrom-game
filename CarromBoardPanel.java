@@ -305,12 +305,12 @@ public class CarromBoardPanel extends JPanel {
 			if (roundDir == horPi) {
 				s.setDir(0);
 			} else {
-				s.setDir((2 * Math.PI) - s.getDir());
+				s.setDir((Math.PI) - s.getDir());
 			}
 			s.setTime(0);
 			hit(s);
 
-		} else if (s.getX() >= 536) { // hits right wall
+		} else if (s.getX() >= 545) { // hits right wall
 			double roundDir = s.getDir() * 10;
 			roundDir = Math.round(roundDir);
 			roundDir /= 10;
@@ -320,11 +320,14 @@ public class CarromBoardPanel extends JPanel {
 			if (roundDir == horPi) {
 				s.setDir(Math.PI);
 			} else {
-				s.setDir((2 * Math.PI) - s.getDir());
+				s.setDir((Math.PI) - s.getDir());
 			}
 
 			s.setTime(0);
 			hit(s);
+			for(Integer[] in : s.getPath()){
+				System.out.print("(" + in[0] + ", " + in[1] + ")" + "    ");
+			}
 		}
 		for (Tile ti : tiles) {
 
@@ -339,6 +342,7 @@ public class CarromBoardPanel extends JPanel {
 			}
 		}
 
+		System.out.println(s.getDir());
 		frame.repaint();
 
 	}
@@ -359,6 +363,7 @@ public class CarromBoardPanel extends JPanel {
 	}
 
 	public static void hit(Tile mTile) {
+		System.out.println("called hit");
 		if (mTile.getSpeed() > 1) {
 			mTile.setSpeed(mTile.getSpeed() - 1);
 		}
@@ -435,6 +440,7 @@ public class CarromBoardPanel extends JPanel {
 				ct++;
 			}
 		}
+
 
 	}
 
