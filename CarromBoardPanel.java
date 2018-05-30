@@ -239,7 +239,13 @@ public class CarromBoardPanel extends JPanel {
 		// }
 		// }
 		// }
-
+		if(s.getX() >= 523 && s.getY() <= 70 || s.getX() <= 75 && s.getY() <= 70 || s.getX() >= 523
+				&& s.getY() >= 517 || s.getX() <= 75 && s.getY() >= 517) {
+			s.scored();
+			score++;
+			t.stop();
+		}
+			
 		if (s.getY() <= 36) { // if striker hits upper wall
 			double roundDir = s.getDir() * 10;
 			roundDir = Math.round(roundDir);
