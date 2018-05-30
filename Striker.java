@@ -55,8 +55,7 @@ public class Striker extends Tile {
 				g.fillOval(super.getX(), super.getY(), strikerDiameter, strikerDiameter);// position
 																							// +
 																							// size
-			}
-				
+			}	
 			else {
 				g.setColor(new Color(250, 250, 10));
 				g.drawOval(super.getX(), super.getY(), strikerDiameter, strikerDiameter);
