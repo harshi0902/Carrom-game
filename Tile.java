@@ -10,6 +10,7 @@ public class Tile implements Drawable {
 	private int centerY;
 	private int time = 0;
 	private double radius;
+	private boolean scored;
 	private ArrayList<Integer[]> path = new ArrayList<Integer[]>();
 
 	public Tile(int xpos, int ypos, int speed, double dir) {
@@ -17,6 +18,7 @@ public class Tile implements Drawable {
 		this.y = ypos;
 		this.speed = speed;
 		this.dir = Math.toRadians(dir);
+		this.scored = false;
 
 	}
 
@@ -98,7 +100,12 @@ public class Tile implements Drawable {
 
 	@Override
 	public void draw(Graphics g) {
-		g.drawOval(x, y, 40, 40);
+		if(!scored)
+			g.drawOval(x, y, 40, 40);
+	}
+
+	public void scored() {
+		scored = true;
 	}
 
 }
