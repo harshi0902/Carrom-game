@@ -49,21 +49,23 @@ public class Striker extends Tile {
 	}
 
 	public void draw(Graphics g) {
-		if (!isHighlighted) {
-			g.setColor(new Color(245, 245, 245)); // white
-			g.fillOval(super.getX(), super.getY(), strikerDiameter, strikerDiameter);// position
-																						// +
-																						// size
-		}
-
-		else {
-			g.setColor(new Color(250, 250, 10));
-			g.drawOval(super.getX(), super.getY(), strikerDiameter, strikerDiameter);
-			strikerTrans.setToTranslation(super.getCenterX(), super.getCenterY());
-			strikerTrans.scale(0.05, 0.05);
-			strikerTrans.rotate(-super.getDir());
-			Graphics2D g2 = (Graphics2D) g;
-			g2.drawImage(img, strikerTrans, null);
+		if(!super.getScore()) {
+			if (!isHighlighted) {
+				g.setColor(new Color(245, 245, 245)); // white
+				g.fillOval(super.getX(), super.getY(), strikerDiameter, strikerDiameter);// position
+																							// +
+																							// size
+			}
+				
+			else {
+				g.setColor(new Color(250, 250, 10));
+				g.drawOval(super.getX(), super.getY(), strikerDiameter, strikerDiameter);
+				strikerTrans.setToTranslation(super.getCenterX(), super.getCenterY());
+				strikerTrans.scale(0.05, 0.05);
+				strikerTrans.rotate(-super.getDir());
+				Graphics2D g2 = (Graphics2D) g;
+				g2.drawImage(img, strikerTrans, null);
+			}
 		}
 	}
 
