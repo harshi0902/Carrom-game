@@ -100,10 +100,13 @@ public class Tile implements Drawable {
 
 	@Override
 	public void draw(Graphics g) {
-		if(!scored)
-			g.drawOval(x, y, 40, 40);
+		g.drawOval(x, y, 40, 40);
 	}
 
+	public boolean getScore() {
+		return scored;
+	}
+	
 	public void scored() {
 		scored = true;
 	}
