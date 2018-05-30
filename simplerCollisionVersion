@@ -1,0 +1,28 @@
+		if (collision(tiles.get(0), tiles.get(1))) { // 0 is carrom, 1 is striker
+
+			Tile one = tiles.get(0); //carrom
+			Tile two = tiles.get(1); //striker
+			int difY = Math.abs(two.getCenterY() - one.getCenterY());
+
+			double angle = Math.asin((difY) / (one.getRadius() +
+					two.getRadius()));
+			double a = two.getRadius() * Math.cos(angle);
+			double b = two.getRadius() * Math.sin(angle);
+
+			double contactX = (double) two.getCenterX() + a;
+			double contactY = (double) two.getCenterY() + b;
+
+			double tanSlope = -((double) two.getX() - contactX) / ((double)
+					two.getY() - contactY);
+			double angleSlope = Math.atan(tanSlope);
+
+			double difAngleOne = one.getDir() - angleSlope;
+			double difAngleTwo = two.getDir() - angleSlope;
+			one.setDir(Math.PI - difAngleOne);
+			hit(one);
+			one.setSpeed(15);
+			
+			two.setDir(Math.PI - difAngleTwo);
+			hit(two);
+			two.setSpeed(15);
+		}
