@@ -23,11 +23,11 @@ public class Tile implements Drawable {
 	}
 
 	public int getTime() {
-		return this.time;
+		return time;
 	}
 
 	public void setTime(int timeSet) {
-		this.time = timeSet;
+		time = timeSet;
 	}
 
 	public double getSpeed() {
@@ -42,59 +42,59 @@ public class Tile implements Drawable {
 		dir = angle;
 	}
 
-	public void setSpeed(double speed) {
-		this.speed = speed;
+	public void setSpeed(double newSpeed) {
+		speed = newSpeed;
 	}
 
 	public void move(int xpos, int ypos) {
-		this.x = xpos;
-		this.y = ypos;
+		x = xpos;
+		y = ypos;
 	}
 
 	public int getX() {
-		return this.x;
+		return x;
 	}
 
 	public int getCenterX() {
 		
-		return (int) (this.x+radius);
+		return (int) (x+radius);
 	}
 
 	public int getCenterY() {
-		return (int) (this.y+radius);
+		return (int) (y+radius);
 	}
 
 	public void setCenterX(int cenX) {
-		this.centerX = cenX;
+		centerX = cenX;
 	}
 
 	public void setCenterY(int cenY) {
-		this.centerY = cenY;
+		centerY = cenY;
 	}
 
 	public int getY() {
-		return this.y;
+		return y;
 	}
 
 	public ArrayList<Integer[]> getPath() {
-		return this.path;
+		return path;
 	}
 
 	public void setPath(int idx, Integer[] yVal) {
-		this.path.add(idx, yVal);
+		path.add(idx, yVal);
 	}
 
 
 	public void setRadius(double rad){
-		this.radius = rad;
+		radius = rad;
 	}
 	
 	public double getRadius(){
-		return this.radius;
+		return radius;
 	}
 	
 	public void clearPath(){
-		this.path = new ArrayList<Integer[]>();
+		path = new ArrayList<Integer[]>();
 	}
 	
 
