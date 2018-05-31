@@ -1,0 +1,19 @@
+                                                           
+public void paintComponent(Graphics g) {                   
+	if(isMenu) {                                           
+		ss.draw(g);                                        
+}                                                          
+	else {                                                 
+	board.draw(g);                                         
+	g.setColor(Color.white);                               
+	g.setFont(new Font("Montserrat", Font.PLAIN, 20));     
+	g.drawString("Score: " + score, 400, 30);              
+	                                                       
+	if(gameOver) {                                         
+		g.fillRect(240, 260, 140, 70);                     
+		g.setColor(Color.BLACK);                           
+		g.drawString("GAME OVER", 250, 300);               
+		                                                   
+	}                                                      
+	}                                                      
+}                                                          
