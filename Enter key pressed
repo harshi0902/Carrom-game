@@ -1,0 +1,10 @@
+	panel.getInputMap().put(KeyStroke.getKeyStroke("ENTER"), "enter");   
+	panel.getActionMap().put("enter", new AbstractAction() {             
+                                                                         
+		@Override                                                        
+		public void actionPerformed(ActionEvent arg0) {                  
+			isMenu = false;                                              
+			frame.repaint();                                             
+		}                                                                
+	});                                                                  
+                                                                         
