@@ -213,6 +213,7 @@ public class CarromBoardPanel extends JPanel {
 
 					Tile one = tiles.get(i);
 					Tile two = tiles.get(j);
+					
 					int difY = Math.abs(two.getCenterY() - one.getCenterY());
 
 					double angle = Math.asin((difY) / (one.getRadius() +
@@ -223,8 +224,8 @@ public class CarromBoardPanel extends JPanel {
 					double contactX = (double) two.getCenterX() + a;
 					double contactY = (double) two.getCenterY() + b;
 
-					double tanSlope = -((double) two.getX() - contactX) / ((double)
-							two.getY() - contactY);
+					double tanSlope = -((double) two.getCenterX() - contactX) / ((double)
+							two.getCenterY() - contactY);
 					double angleSlope = Math.atan(tanSlope);
 
 					double difAngleOne = one.getDir() - angleSlope;
@@ -251,7 +252,7 @@ public class CarromBoardPanel extends JPanel {
 					
 					two.setDir(newAngleTwo);
 					hit(two);
-					two.setSpeed(15);
+					one.setSpeed(15);
 					System.out.println("two: " + two.getDir());
 				}
 			}
