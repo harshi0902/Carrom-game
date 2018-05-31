@@ -106,7 +106,7 @@ public class CarromBoardPanel extends JPanel {
 			public void actionPerformed(ActionEvent arg0) {
 				score = 0;
 				gameOver = false;
-				((CarromBoardPanel) panel).restart();
+				restart();
 			}
 
 		});
@@ -216,14 +216,16 @@ public class CarromBoardPanel extends JPanel {
 
 					int difY = Math.abs(two.getCenterY() - one.getCenterY());
 
-					double angle = Math.asin((difY) / (one.getRadius() + two.getRadius()));
+					double angle = Math.asin((difY) / (one.getRadius() +
+							two.getRadius()));
 					double a = two.getRadius() * Math.cos(angle);
 					double b = two.getRadius() * Math.sin(angle);
 
 					double contactX = (double) two.getCenterX() + a;
 					double contactY = (double) two.getCenterY() + b;
 
-					double tanSlope = -((double) two.getCenterX() - contactX) / ((double) two.getCenterY() - contactY);
+					double tanSlope = -((double) two.getCenterX() - contactX) / ((double)
+							two.getCenterY() - contactY);
 					double angleSlope = Math.atan(tanSlope);
 
 					double difAngleOne = one.getDir() - angleSlope;
@@ -255,25 +257,23 @@ public class CarromBoardPanel extends JPanel {
 				}
 			}
 		}
-		boolean allStopped = true;
-		for (Tile ti : tiles) {
-			if (ti.getX() >= 523 && ti.getY() <= 70 || ti.getX() <= 75 && ti.getY() <= 70
-					|| ti.getX() >= 523 && ti.getY() >= 517 || ti.getX() <= 75 && ti.getY() >= 517) {
-				ti.scored();
-				if (ti instanceof Carrom) {
-					score++;
-					restart();
-				} else {
-					System.out.println("Striker went in");
 
+		for(Tile ti : tiles) {
+			if (ti.getX() >= 523 && ti.getY() <= 70 || ti.getX() <= 75 && ti.getY() <= 70 || ti.getX() >= 523 && ti.getY() >= 517
+					|| ti.getX() <= 75 && ti.getY() >= 517) {
+				ti.scored();
+				if(ti instanceof Carrom) {
+					score++;
+					board.incrementLevel();
+					restart();
+				}
+				else {
+					System.out.println("Striker went in");
+					gameOver = true;
 					t.stop();
-					this.restart();
 				}
 			}
 
-			if(ti.getSpeed() > 1){
-				allStopped = false;
-			}
 			if (ti.getY() <= 36) { // if striker hits upper wall
 				double roundDir = ti.getDir() * 10;
 				roundDir = Math.round(roundDir);
@@ -291,10 +291,7 @@ public class CarromBoardPanel extends JPanel {
 				}
 
 				else {
-					if(2*Math.PI - ti.getDir() <0){
-						ti.setDir((2*Math.PI-ti.getDir()) + (2*Math.PI));
-					}
-					ti.setDir(2 * Math.PI - ti.getDir());
+					ti.setDir((2 * Math.PI) - ti.getDir());
 				}
 
 				ti.setTime(0);
@@ -315,14 +312,11 @@ public class CarromBoardPanel extends JPanel {
 				if (roundDir == verPi) {
 					ti.setDir(Math.PI / 2);
 				} else {
-					if(2*Math.PI - ti.getDir() <0){
-						ti.setDir((2*Math.PI-ti.getDir()) + (2*Math.PI));
-					}
 					ti.setDir(2 * Math.PI - ti.getDir());
 				}
 				ti.setTime(0);
 				hit(ti);
-				System.out.println(ti.toString() + "dir" + ti.getDir());
+				System.out.println(ti.getDir());
 
 			}
 
@@ -339,10 +333,10 @@ public class CarromBoardPanel extends JPanel {
 				if (roundDir == horPi) {
 					ti.setDir(0);
 				} else {
-					if (Math.PI - ti.getDir() < 0) {
-						ti.setDir(Math.PI - ti.getDir() + (2 * Math.PI));
-					} else {
-						ti.setDir((Math.PI) - ti.getDir());
+					if(Math.PI- ti.getDir() < 0){
+						ti.setDir(Math.PI - ti.getDir() + (2*Math.PI));
+					}
+					else{ti.setDir((Math.PI) - ti.getDir());
 
 					}
 				}
@@ -358,155 +352,158 @@ public class CarromBoardPanel extends JPanel {
 
 				if (roundDir == horPi) {
 					ti.setDir(Math.PI);
-				} else {
-					if (Math.PI - ti.getDir() < 0) {
-						ti.setDir(Math.PI - ti.getDir() + (2 * Math.PI));
-					} else {
-						ti.setDir((Math.PI) - ti.getDir());
+				} 
+				else {
+					if(Math.PI- ti.getDir() < 0){
+						ti.setDir(Math.PI - ti.getDir() + (2*Math.PI));
+					}
+					else{ti.setDir((Math.PI) - ti.getDir());
 
 					}
 				}
 
 				ti.setTime(0);
 				hit(ti);
-			}
-			System.out.println("speed: " + ti.getSpeed());
-		}
-		
-		if(allStopped){
-			t.stop();
-		}
-		for (Tile ti : tiles) {
-
-			if (ti.getPath().size() > (ti.getTime() + (int) ti.getSpeed())) {
-				ti.move(ti.getPath().get(ti.getTime() + (int) ti.getSpeed())[0],
-						ti.getPath().get(ti.getTime() + (int) ti.getSpeed())[1]);
-				ti.setTime(ti.getTime() + (int) ti.getSpeed());
-				if (ti.getSpeed() - 0.1 > 0) {
-					ti.setSpeed(ti.getSpeed() - 0.1);
+				for(Integer[] in : ti.getPath()){
+					System.out.print("(" + in[0] + ", " + in[1] + ")" + "    ");
 				}
-
-			}
-		}
-
-		System.out.println(s.getDir());
-		frame.repaint();
-
-	}
-
-	public void restart() {
-		board = new Board();
-		tiles = board.getTiles();
-		s = (Striker) tiles.get(board.strikerIndex());
-		this.repaint();
-	}
-
-	public boolean collision(Tile t, Tile t2) { // is a tile touching another
-		// tile
-		double distance = Math.hypot(t.getCenterX() - t2.getCenterX(), t.getCenterY() - t2.getCenterY());
-
-		distance *= 10;
-		distance = Math.round(distance);
-		distance /= 10;
-		double thisRadius = t.getRadius();
-		double otherRadius = t2.getRadius();
-		if (distance <= otherRadius + thisRadius) {
-			return true;
-		}
-		return false;
-	}
-
-	public static void hit(Tile mTile) {
-		System.out.println("called hit");
-		if (mTile.getSpeed() > 1) {
-			mTile.setSpeed(mTile.getSpeed() - 1);
-		}
-		mTile.clearPath();
-
-		double dir = mTile.getDir();
-		int x = mTile.getX();
-		int y = mTile.getY();
-		double ver = dir * 100;
-		ver = Math.round(ver);
-		ver = ver / 100;
-
-		double verPi = Math.PI / 2;
-		verPi = verPi * 100;
-		verPi = Math.round(verPi);
-		verPi = verPi / 100;
-
-		double verPi2 = 3 * Math.PI / 2;
-		verPi2 = verPi2 * 100;
-		verPi2 = Math.round(verPi2);
-		verPi2 = verPi2 / 100;
-
-		if (ver == verPi) {
-			int ct = 0;
-			System.out.println("its the one");
-			for (int i = y; i >= 0; i--) {
-				Integer[] coord = new Integer[2];
-				coord[0] = new Integer(x);
-				Integer proY = new Integer(y - ct);
-				coord[1] = proY;
-				mTile.setPath(ct, coord);
-				ct++;
-			}
-		}
-
-		else if (ver == verPi2) {
-			int ct = 0;
-
-			for (int i = y; i < 566; i++) {
-				Integer[] coord = new Integer[2];
-				coord[0] = new Integer(x);
-				Integer proY = new Integer(y + ct);
-				coord[1] = proY;
-				mTile.setPath(ct, coord);
-				ct++;
-			}
-		}
-
-		else if ((dir >= 0 && dir < Math.PI / 2) || (dir > Math.PI * 3 / 2 && dir < Math.PI * 2)) {
-			int count = 565;
-			int ct = 0;
-			for (int i = x; i < count; i++) {
-				Integer[] coord = new Integer[2];
-				coord[0] = new Integer(i);
-				Integer proY;
-				proY = new Integer(y - (int) (ct * Math.tan(dir)));
-				coord[1] = proY;
-
-				mTile.setPath(ct, coord);
-				ct++;
 			}
 
 		}
 
-		else if ((dir > Math.PI / 2 && dir <= Math.PI) || (dir > Math.PI && dir < Math.PI * 3 / 2)) {
-			int count = 0;
-			int ct = 0;
-			for (int i = x; i > count; i--) {
-				Integer[] coord = new Integer[2];
-				coord[0] = new Integer(i);
-				Integer proY = new Integer(y - (int) (ct * Math.tan(Math.PI - dir)));
-				coord[1] = proY;
-				mTile.setPath(ct, coord);
-				ct++;
+	for (Tile ti : tiles) {
+
+		if (ti.getPath().size() > (ti.getTime() + (int) ti.getSpeed())) {
+			ti.move(ti.getPath().get(ti.getTime() + (int) ti.getSpeed())[0],
+					ti.getPath().get(ti.getTime() + (int) ti.getSpeed())[1]);
+			ti.setTime(ti.getTime() + (int) ti.getSpeed());
+			if (ti.getSpeed() - 0.1 > 0) {
+				ti.setSpeed(ti.getSpeed() - 0.1);
 			}
+
+		}
+	}
+
+	System.out.println(s.getDir());
+	System.out.println("speed: " + s.getSpeed());
+	frame.repaint();
+
+}
+
+public static void restart() {
+	board = new Board();
+	tiles = board.getTiles();
+	s = (Striker) tiles.get(board.strikerIndex());
+	frame.repaint();
+}
+
+public boolean collision(Tile t, Tile t2) { // is a tile touching another
+	// tile
+	double distance = Math.hypot(t.getCenterX() - t2.getCenterX(), t.getCenterY() - t2.getCenterY());
+
+	distance *= 10;
+	distance = Math.round(distance);
+	distance /= 10;
+	double thisRadius = t.getRadius();
+	double otherRadius = t2.getRadius();
+	if (distance <= otherRadius + thisRadius) {
+		return true;
+	}
+	return false;
+}
+
+public static void hit(Tile mTile) {
+	System.out.println("called hit");
+	if (mTile.getSpeed() > 1) {
+		mTile.setSpeed(mTile.getSpeed() - 1);
+	}
+	mTile.clearPath();
+
+	double dir = mTile.getDir();
+	int x = mTile.getX();
+	int y = mTile.getY();
+	double ver = dir * 100;
+	ver = Math.round(ver);
+	ver = ver / 100;
+
+	double verPi = Math.PI / 2;
+	verPi = verPi * 100;
+	verPi = Math.round(verPi);
+	verPi = verPi / 100;
+
+	double verPi2 = 3 * Math.PI / 2;
+	verPi2 = verPi2 * 100;
+	verPi2 = Math.round(verPi2);
+	verPi2 = verPi2 / 100;
+
+	if (ver == verPi) {
+		int ct = 0;
+		System.out.println("its the one");
+		for (int i = y; i >= 0; i--) {
+			Integer[] coord = new Integer[2];
+			coord[0] = new Integer(x);
+			Integer proY = new Integer(y - ct);
+			coord[1] = proY;
+			mTile.setPath(ct, coord);
+			ct++;
+		}
+	}
+
+	else if (ver == verPi2) {
+		int ct = 0;
+
+		for (int i = y; i < 566; i++) {
+			Integer[] coord = new Integer[2];
+			coord[0] = new Integer(x);
+			Integer proY = new Integer(y + ct);
+			coord[1] = proY;
+			mTile.setPath(ct, coord);
+			ct++;
+		}
+	}
+
+	else if ((dir >= 0 && dir < Math.PI / 2) || (dir > Math.PI * 3 / 2 && dir < Math.PI * 2)) {
+		int count = 565;
+		int ct = 0;
+		for (int i = x; i < count; i++) {
+			Integer[] coord = new Integer[2];
+			coord[0] = new Integer(i);
+			Integer proY;
+			proY = new Integer(y - (int) (ct * Math.tan(dir)));
+			coord[1] = proY;
+
+			mTile.setPath(ct, coord);
+			ct++;
 		}
 
 	}
 
-	public void paintComponent(Graphics g) {
-		board.draw(g);
-		g.setColor(Color.white);
-		g.setFont(new Font("Montserrat", Font.PLAIN, 20));
-		g.drawString("Score: " + score, 400, 30);
-		if (gameOver) {
-			g.fillRect(240, 260, 140, 70);
-			g.setColor(Color.BLACK);
-			g.drawString("GAME OVER", 250, 300);
+	else if ((dir > Math.PI / 2 && dir <= Math.PI) || (dir > Math.PI && dir < Math.PI * 3 / 2)) {
+		int count = 0;
+		int ct = 0;
+		for (int i = x; i > count; i--) {
+			Integer[] coord = new Integer[2];
+			coord[0] = new Integer(i);
+			Integer proY = new Integer(y - (int) (ct * Math.tan(Math.PI - dir)));
+			coord[1] = proY;
+			mTile.setPath(ct, coord);
+			ct++;
 		}
 	}
+
+
+}
+
+public void paintComponent(Graphics g) {
+	board.draw(g);
+	g.setColor(Color.white);
+	g.setFont(new Font("Montserrat", Font.PLAIN, 20));
+	g.drawString("Score: " + score, 400, 30);
+	if(gameOver) {
+		g.fillRect(240, 260, 140, 70);
+		g.setColor(Color.BLACK);
+		g.drawString("GAME OVER", 250, 300);
+	}
+}
 
 }
