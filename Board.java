@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -55,8 +56,8 @@ public class Board implements Drawable{
 		return -1;
 	}
 	
-	public void reset() {
-		
+	public void incrementLevel() {
+		level++;
 	}
 
 }
