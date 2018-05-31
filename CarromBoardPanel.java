@@ -35,7 +35,7 @@ public class CarromBoardPanel extends JPanel {
 	private static JPanel panel = new CarromBoardPanel();
 	private static Striker s = (Striker) board.getTiles().get(board.strikerIndex());
 	private static boolean isStrikerSelected = false;
-	private boolean gameOver = false;
+	private static boolean gameOver = false;
 
 	public static void main(String[] args) {
 
@@ -105,6 +105,7 @@ public class CarromBoardPanel extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				score = 0;
+				gameOver = false;
 				board = new Board();
 				tiles = board.getTiles();
 				s = (Striker) tiles.get(board.strikerIndex());
@@ -502,6 +503,11 @@ public class CarromBoardPanel extends JPanel {
 		g.setColor(Color.white);
 		g.setFont(new Font("Montserrat", Font.PLAIN, 20));
 		g.drawString("Score: " + score, 400, 30);
+		if(gameOver) {
+			g.fillRect(240, 260, 140, 70);
+			g.setColor(Color.BLACK);
+			g.drawString("GAME OVER", 250, 300);
+		}
 	}
 
 }
