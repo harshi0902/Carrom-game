@@ -56,7 +56,6 @@ public class Tile implements Drawable {
 	}
 
 	public int getCenterX() {
-		
 		return (int) (x+radius);
 	}
 
