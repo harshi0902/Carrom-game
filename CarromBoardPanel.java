@@ -28,10 +28,10 @@ public class CarromBoardPanel extends JPanel {
 
 	private final int SIZE_PANEL = 600;
 	private static Board board = new Board();
-	private int score = 0;
+	private static int score = 0;
 	private static JFrame frame = new JFrame("Carrom Board!");
 	private static Timer t = new Timer(1, null);
-	ArrayList<Tile> tiles = board.getTiles();
+	private static ArrayList<Tile> tiles = board.getTiles();
 	private static JPanel panel = new CarromBoardPanel();
 	private static Striker s = (Striker) board.getTiles().get(board.strikerIndex());
 	private static boolean isStrikerSelected = false;
@@ -104,8 +104,10 @@ public class CarromBoardPanel extends JPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				panel.requestFocusInWindow();
+				score = 0;
 				board = new Board();
+				tiles = board.getTiles();
+				s = (Striker) tiles.get(board.strikerIndex());
 				frame.repaint();
 			}
 
@@ -263,10 +265,13 @@ public class CarromBoardPanel extends JPanel {
 				ti.scored();
 				if(ti instanceof Carrom) {
 					score++;
+					t.stop();
 				}
 				else {
+					System.out.println("Striker went in");
 					gameOver = true;
 				}
+				
 				t.stop();
 			}
 
