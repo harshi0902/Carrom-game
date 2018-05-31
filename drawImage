@@ -1,0 +1,7 @@
+BufferedImage img = null;
+		try {
+		    img = ImageIO.read(getClass().getResource("carrom_board.png")); //name of file of picture of board
+		} catch (IOException e) {
+			System.out.println("bleh");
+		}
+		g.drawImage(img, 0, 0, 600, 600, null);
