@@ -37,9 +37,14 @@ public class CarromBoardPanel extends JPanel {
 	private static boolean isStrikerSelected = false;
 	private static boolean gameOver = false;
 	private static int timeCt = 0;
+	private static boolean isMenu = true;
+	private static StartScreen ss = new StartScreen();
+	private static Sound sound = new Sound("/Cheerful-marimba-music-melody-loop.wav");
 
 	public static void main(String[] args) {
 
+		sound.loop();
+		
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.add(panel);
@@ -55,6 +60,17 @@ public class CarromBoardPanel extends JPanel {
 				frame.repaint();
 			}
 		});
+		
+		panel.getInputMap().put(KeyStroke.getKeyStroke("ENTER"), "enter");   
+		panel.getActionMap().put("enter", new AbstractAction() {             
+	                                                                         
+			@Override                                                        
+			public void actionPerformed(ActionEvent arg0) {                  
+				isMenu = false;                                              
+				frame.repaint();                                             
+			}                                                                
+		});   
+		
 		panel.getInputMap().put(KeyStroke.getKeyStroke("RIGHT"), "increaseAngle");
 
 		panel.getActionMap().put("increaseAngle", new AbstractAction() {
@@ -498,33 +514,40 @@ public class CarromBoardPanel extends JPanel {
 	}
 
 	public void paintComponent(Graphics g) {
-		board.draw(g);
-		g.setColor(Color.white);
-		g.setFont(new Font("Montserrat", Font.PLAIN, 20));
-		g.drawString("Score: " + score, 400, 30);
-		if (gameOver) {
-			g.fillRect(240, 260, 140, 70);
-			g.setColor(Color.BLACK);
-			g.drawString("GAME OVER", 250, 300);
+		if(isMenu) {                                           
+			ss.draw(g);                                        
+		}                            
+		else {
+			board.draw(g);
+			g.setColor(Color.white);
+			g.setFont(new Font("Montserrat", Font.PLAIN, 20));
+			g.drawString("Score: " + score, 400, 30);
+			if (gameOver) {
+				g.fillRect(240, 260, 140, 70);
+				g.setColor(Color.BLACK);
+				g.drawString("GAME OVER", 250, 300);
+				g.setColor(Color.WHITE);
+				Timer gameOv = new Timer(1000, null);
 
-			Timer gameOv = new Timer(1000, null);
+				gameOv.addActionListener(new ActionListener() {
 
-			gameOv.addActionListener(new ActionListener() {
-
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					timeCt++;
-					if (timeCt == 5) {
-
-						gameOver = false;
-						gameOv.stop();
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						timeCt++;
+						if (timeCt == 5) {
+							timeCt = 0;
+							gameOver = false;
+							gameOv.stop();
+						}
 					}
-				}
 
-			});
+				});
 
-			gameOv.start();
-			this.repaint();
+				gameOv.start();
+				this.repaint();
+			}
 		}
 	}
+		
 }
+
