@@ -1,0 +1,11 @@
+import java.awt.Graphics;
+
+public class StartScreen implements Drawable {
+
+	@Override
+	public void draw(Graphics g) {
+		g.fillRect(0, 0, 600, 600);
+	}
+
+
+}
