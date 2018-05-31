@@ -31,6 +31,6 @@ public class Carrom extends Tile {
 		g.setColor(c);
 		g.fillOval(super.getX(), super.getY(), carromDiameter, carromDiameter); // position
 		g.setColor(Color.BLACK);
-		g.fillOval(super.getX(), super.getY(), carromDiameter, carromDiameter); // position
+		g.drawOval(super.getX(), super.getY(), carromDiameter, carromDiameter); // position
 	}
 }
