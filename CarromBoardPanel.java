@@ -519,10 +519,18 @@ public class CarromBoardPanel extends JPanel {
 			g.setFont(new Font("Montserrat", Font.PLAIN, 20));
 			g.drawString("Score: " + score, 400, 30);
 			if (gameOver) {
-				g.fillRect(240, 260, 140, 70);
-				g.setColor(Color.BLACK);
-				g.drawString("GAME OVER", 250, 300);
-				g.setColor(Color.WHITE);
+// 				g.fillRect(240, 260, 140, 70);
+// 				g.setColor(Color.BLACK);
+// 				g.drawString("GAME OVER", 250, 300);
+// 				g.setColor(Color.WHITE);
+				
+				BufferedImage img = null;
+				try {
+				    img = ImageIO.read(getClass().getResource("gameover.png")); //name of file of picture of board
+				} catch (IOException e) {
+					System.out.println("bleh");
+				}
+				g.drawImage(img, 150, 215, 300, 150, null);
 				Timer gameOv = new Timer(1000, null);
 
 				gameOv.addActionListener(new ActionListener() {
