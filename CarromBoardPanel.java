@@ -195,21 +195,17 @@ public class CarromBoardPanel extends JPanel {
 			JFrame frame2 = new JFrame("RULES PAGE"); // name for the frame
 			frame2.setVisible(true);
 			frame2.setSize(600, 600);
-			JLabel label = new JLabel("Points distribution: \r\n" + "White coins = 10 pts each, \r\n"
-					+ "Black coins = 5pts each, \r\n" + "1 Red coin = 25 pts\r\n"
-					+ "If you hit the red then you have to hit a white / black immediately after it\r\n" + "");
-			label.setText("<html>Points distribution: \r\n" + " White = 10 pts each, \r\n" + " Black = 5pts each, \r\n"
-					+ "1 Red = 25 pts\r\n" + "<br>" + "<br>"
-					+ "If you hit the red then you have to hit a white / black immediately after it\r\n" + "<br>"
-					+ "<br>" + "Player must place Striker on his/ her baseline of the board\r\n" + "<br>" + "<br>"
-					+ "There are NO half reds, which means you can not place the Striker in between the red circles\r\n"
-					+ "<br>" + "<br>"
-					+ "If you click the Striker once it will hit the coins in the direction you point it at" + "<br>"
-					+ "<br>" + "At the end of the game, whoever has the most points wins!\r\n" + "<br>" + "<br>"
-					+ "You have 20 seconds for your turn\r\n" + "<br>" + "<br>"
-					+ "Press the Left Arrow Key to move the arrow to the Left" + "<br>" + "<br>"
-					+ "Press the Right Arrow Key to move the arrow to the Right" + "<br>" + "<br>"
-					+ "Press the Enter Key to shoot the Striker" + "</html>");
+			JLabel label = new JLabel();
+			label.setText("<html>Player must place Striker on his/ her baseline of the board\\r\\n\" + \"<br>\" + \"<br>\"\n" + 
+					"					+ \"There are NO half reds, which means you can not place the Striker in between the red circles\\r\\n\"\n" + 
+					"					+ \"<br>\" + \"<br>\"\n" + 
+					"					+\"Player can get points by hitting the coin into one of the four corners which are known as 'goals'\\r\\n\" + \"<br>\" + \"<br>\"\n" + 
+					"					+ \"If you click the Striker once it will hit the coin in the direction you point it at\" + \"<br>\"\n" + 
+					"					+ \"<br>\" + \"At the end of the game, whoever has the most points wins!\\r\\n\" + \"<br>\" + \"<br>\"\n" + 
+					"					\n" + 
+					"					+ \"Press the Left Arrow Key to move the arrow to the Left\" + \"<br>\" + \"<br>\"\n" + 
+					"					+ \"Press the Right Arrow Key to move the arrow to the Right\" + \"<br>\" + \"<br>\"\n" + 
+					"					+ \"Press the Space Bar Key to shoot the Striker\" + \"</html>");
 			label.setFont(new Font("Times New Roman", Font.BOLD, 14));
 
 			frame2.getContentPane().setBackground(Color.CYAN);
@@ -550,4 +546,3 @@ public class CarromBoardPanel extends JPanel {
 	}
 		
 }
-
