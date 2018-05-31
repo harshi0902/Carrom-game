@@ -196,19 +196,20 @@ public class CarromBoardPanel extends JPanel {
 			frame2.setVisible(true);
 			frame2.setSize(600, 600);
 			JLabel label = new JLabel();
-			label.setText("<html>Player must place Striker on his/ her baseline of the board\\r\\n\" + \"<br>\" + \"<br>\"\n" + 
-					"					+ \"There are NO half reds, which means you can not place the Striker in between the red circles\\r\\n\"\n" + 
-					"					+ \"<br>\" + \"<br>\"\n" + 
-					"					+\"Player can get points by hitting the coin into one of the four corners which are known as 'goals'\\r\\n\" + \"<br>\" + \"<br>\"\n" + 
-					"					+ \"If you click the Striker once it will hit the coin in the direction you point it at\" + \"<br>\"\n" + 
-					"					+ \"<br>\" + \"At the end of the game, whoever has the most points wins!\\r\\n\" + \"<br>\" + \"<br>\"\n" + 
-					"					\n" + 
-					"					+ \"Press the Left Arrow Key to move the arrow to the Left\" + \"<br>\" + \"<br>\"\n" + 
-					"					+ \"Press the Right Arrow Key to move the arrow to the Right\" + \"<br>\" + \"<br>\"\n" + 
-					"					+ \"Press the Space Bar Key to shoot the Striker\" + \"</html>");
-			label.setFont(new Font("Times New Roman", Font.BOLD, 14));
+			label.setText("<html>A Player can earn points by hitting the carrom into one of the four corners which are known as 'goals'"
+					+"<br>" +"<br>"
+					+"If the Striker lands in one of the goals, the player loses the game :("
+					+ "<br>" +"<br>"
+					+"Click on the Striker to see a line come up, which represents the striker's intended direction"
+					+ "<br>" +"<br>"
+					+ "Press and hold the Left Arrow Key to rotate the line to the Left"
+					+ "<br>" +"<br>"
+					+ "Press and hold the Right Arrow Key to rotate the line to the Right"
+					+ "<br>"  +"<br>"
+					+ "Press the Space Key to shoot the Striker");
+			label.setFont(new Font("Times New Roman", Font.BOLD, 18));
 
-			frame2.getContentPane().setBackground(Color.CYAN);
+			frame2.getContentPane().setBackground(new Color(70,224,226));
 			Icon imgIcon = new ImageIcon(this.getClass().getResource("rules.gif"));
 			label.setIcon(imgIcon);
 			label.setBounds(668, 43, 46, 14); // for example, you can use your
@@ -541,7 +542,7 @@ public class CarromBoardPanel extends JPanel {
 					}
 
 				});
-
+				score = 0;
 				gameOv.start();
 				this.repaint();
 			}
