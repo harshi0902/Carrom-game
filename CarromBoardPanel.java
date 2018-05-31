@@ -106,10 +106,7 @@ public class CarromBoardPanel extends JPanel {
 			public void actionPerformed(ActionEvent arg0) {
 				score = 0;
 				gameOver = false;
-				board = new Board();
-				tiles = board.getTiles();
-				s = (Striker) tiles.get(board.strikerIndex());
-				frame.repaint();
+				restart();
 			}
 
 		});
@@ -266,14 +263,13 @@ public class CarromBoardPanel extends JPanel {
 				ti.scored();
 				if(ti instanceof Carrom) {
 					score++;
-					t.stop();
+					restart();
 				}
 				else {
 					System.out.println("Striker went in");
 					gameOver = true;
+					t.stop();
 				}
-				
-				t.stop();
 			}
 
 			if (ti.getY() <= 36) { // if striker hits upper wall
@@ -401,6 +397,13 @@ public class CarromBoardPanel extends JPanel {
 
 	}
 
+	public static void restart() {
+		board = new Board();
+		tiles = board.getTiles();
+		s = (Striker) tiles.get(board.strikerIndex());
+		frame.repaint();
+	}
+	
 	public boolean collision(Tile t, Tile t2) { // is a tile touching another
 												// tile
 		double distance = Math.hypot(t.getCenterX() - t2.getCenterX(), t.getCenterY() - t2.getCenterY());
