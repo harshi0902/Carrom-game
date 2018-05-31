@@ -231,20 +231,20 @@ public class CarromBoardPanel extends JPanel {
 					double difAngleTwo = two.getDir() - angleSlope;
 					
 					double newAngleOne = Math.PI - difAngleOne;
-					if (newAngleOne >= 2 * Math.PI) {
-						newAngleOne = newAngleOne - 2 * Math.PI;
+					if (Math.abs(newAngleOne) >= 2 * Math.PI) {
+						newAngleOne = Math.abs(newAngleOne) % (2 * Math.PI);
 					} else if (newAngleOne <= 0) {
-						newAngleOne = 2 * Math.PI - newAngleOne;
+						newAngleOne = 2 * Math.PI + newAngleOne;
 					}
 					
 					double newAngleTwo = Math.PI - difAngleTwo;
-					if (newAngleTwo >= 2 * Math.PI) {
-						newAngleTwo = newAngleTwo - 2 * Math.PI;
+					if (Math.abs(newAngleTwo) >= 2 * Math.PI) {
+						newAngleTwo = Math.abs(newAngleTwo) % (2 * Math.PI);
 					} else if (newAngleTwo <= 0) {
-						newAngleTwo = 2 * Math.PI - newAngleTwo;
+						newAngleTwo = 2 * Math.PI + newAngleTwo;
 					}
 					
-					one.setDir(Math.PI - difAngleOne);
+					one.setDir(newAngleOne);
 					hit(one);
 					one.setSpeed(15);
 					System.out.println("one: " + one.getDir());
@@ -323,7 +323,6 @@ public class CarromBoardPanel extends JPanel {
 				}
 				ti.setTime(0);
 				hit(ti);
-				System.out.println(ti.getDir());
 
 			}
 
@@ -391,6 +390,7 @@ public class CarromBoardPanel extends JPanel {
 		}
 
 		System.out.println(s.getDir());
+		System.out.println("speed: " + s.getSpeed());
 		frame.repaint();
 
 	}
@@ -417,7 +417,7 @@ public class CarromBoardPanel extends JPanel {
 		}
 		mTile.clearPath();
 
-		double dir = s.getDir();
+		double dir = mTile.getDir();
 		int x = mTile.getX();
 		int y = mTile.getY();
 		double ver = dir * 100;
