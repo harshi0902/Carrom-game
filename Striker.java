@@ -82,10 +82,10 @@ public class Striker extends Tile {
 	public void incrementAngle(double d) {
 		double angle = super.getDir();
 		super.setDir(angle += d);
-		if (super.getDir() >= 2 * Math.PI) {
-			super.setDir(super.getDir() - 2 * Math.PI);
+		if (Math.abs(super.getDir()) >= 2 * Math.PI) {
+			super.setDir(super.getDir() % (2 * Math.PI));
 		} else if (super.getDir() <= 0) {
-			super.setDir(2 * Math.PI - super.getDir());
+			super.setDir(2 * Math.PI + super.getDir());
 		}
 	}
 	
