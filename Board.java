@@ -38,8 +38,9 @@ public class Board implements Drawable{
 			t.draw(g);
 		}
 		//for drawing the level thingy
-		g.setColor(new Color(240, 240, 240));
-		g.fillRect(5, 5, 60, 20);
+// 		g.setColor(new Color(240, 240, 240));
+// 		g.fillRect(5, 5, 60, 20);
+		g.setFont(new Font("Times New Roman", Font.BOLD, 14));
 		g.setColor(new Color(0, 0 ,0));
 		g.drawString("Level: " + level, 10, 20);
 	}
