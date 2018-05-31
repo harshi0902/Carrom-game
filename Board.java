@@ -10,6 +10,7 @@ public class Board implements Drawable{
 	ArrayList<Tile> tiles = new ArrayList<Tile>();
 	private final int carromDiameter = 10;
 	private int center = 290;
+	private int level = 1;
 	
 	public Board() { 
 		generateNewTile();
@@ -35,6 +36,11 @@ public class Board implements Drawable{
 		for(Tile t: tiles) {
 			t.draw(g);
 		}
+		//for drawing the level thingy
+		g.setColor(new Color(240, 240, 240));
+		g.fillRect(5, 5, 60, 20);
+		g.setColor(new Color(0, 0 ,0));
+		g.drawString("Level: " + level, 10, 20);
 	}
 	
 	public ArrayList<Tile> getTiles(){
