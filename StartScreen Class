@@ -16,6 +16,10 @@ public class StartScreen implements Drawable{
 			System.out.println("bleh");
 		}
 		g.drawImage(img, 0, 150, 600, 300, null);
+		g.setColor(Color.WHITE);
+		g.setFont(new Font("Times New Roman", Font.BOLD, 23));
+		g.drawString("Click the Screen and the Enter Key to start the game!", 30, 540);
+		g.setColor(Color.BLACK);
 	}
 
 }
