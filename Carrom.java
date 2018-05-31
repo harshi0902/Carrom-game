@@ -1,26 +1,17 @@
 import java.awt.Color;
 import java.awt.Graphics;
 
-public class Carrom extends Tile{
-	private int color; //red, white, black
+public class Carrom extends Tile {
+	private int color; // red, white, black
 	private int pointVal;
 	private final int carromDiameter = 20;
 	private Color c;
-	
+
 	public Carrom(int color, int posX, int posY) {
+
 		super(posX, posY, 0, 0);
-		if(color == 0) {
-			pointVal = 25;
-			c = new Color(245, 90, 90);
-		}
-		else if(color == 1) {
-			pointVal = 10;
-			c = new Color(240, 215, 180);
-		}
-		else {
-			pointVal = 5;
-			c = new Color(0, 0, 0);
-		}
+		super.setRadius(carromDiameter / 2);
+		c = new Color((int)(Math.random() * 0x1000000));
 	}
 
 	public int getColor() {
@@ -30,14 +21,14 @@ public class Carrom extends Tile{
 	public int getPointVal() {
 		return pointVal;
 	}
-	
+
 	public double getRadius() {
-		return carromDiameter/2;
+		return carromDiameter / 2;
 	}
-	
+
 	@Override
 	public void draw(Graphics g) {
 		g.setColor(c);
-		g.fillOval(super.getX(), super.getY(), carromDiameter, carromDiameter); //position
+		g.fillOval(super.getX(), super.getY(), carromDiameter, carromDiameter); // position
 	}
 }
